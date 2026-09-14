@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#080914">
+<title>Thumbnail Maker Pro</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#050711;
+  color:#fff;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  min-height:100vh;
+  padding-bottom:82px;
+}
+
+header{
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  background:#090c18;
+  border-bottom:1px solid #20243a;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:19px;
+  font-weight:800;
+}
+
+.logoBox{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#7c3cff,#ff3c9d);
+  box-shadow:0 0 20px #7c3cff55;
+  font-size:20px;
+}
+
+.headerBtns{
+  display:flex;
+  gap:8px;
+}
+
+.iconBtn{
+  width:40px;
+  height:40px;
+  border:1px solid #292d45;
+  border-radius:12px;
+  background:#111525;
+  color:white;
+}
+
+.screen{
+  display:none;
+  padding:18px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.screen.active{
+  display:block;
+}
+
+.hero{
+  margin-top:10px;
+  padding:24px 20px;
+  border-radius:24px;
+  background:
+    radial-gradient(circle at top right,#7c3cff35,transparent 40%),
+    radial-gradient(circle at bottom left,#ff3c9d25,transparent 40%),
+    #0d1020;
+  border:1px solid #292d45;
+}
+
+.hero h1{
+  margin:0 0 10px;
+  font-size:31px;
+  line-height:1.1;
+}
+
+.hero p{
+  color:#a9afc5;
+  line-height:1.5;
+  margin:0 0 20px;
+}
+
+.primary{
+  border:0;
+  color:white;
+  padding:13px 18px;
+  border-radius:13px;
+  font-weight:800;
+  background:linear-gradient(135deg,#7438ff,#ff389c);
+  box-shadow:0 8px 25px #7c3cff30;
+}
+
+.secondary{
+  border:1px solid #30354f;
+  color:white;
+  padding:12px 16px;
+  border-radius:13px;
+  font-weight:700;
+  background:#111525;
+}
+
+.sectionTitle{
+  margin:25px 0 13px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.sectionTitle h2{
+  margin:0;
+  font-size:19px;
+}
+
+.sectionTitle span{
+  color:#8e95ae;
+  font-size:13px;
+}
+
+.quickGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.quick{
+  padding:16px 10px;
+  border:1px solid #282c43;
+  background:#0d1020;
+  border-radius:17px;
+  color:white;
+  text-align:center;
+}
+
+.quick .emoji{
+  font-size:25px;
+  display:block;
+  margin-bottom:8px;
+}
+
+.quick small{
+  color:#aab0c3;
+}
+
+.templateGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+
+.template{
+  background:#0d1020;
+  border:1px solid #282c43;
+  border-radius:17px;
+  overflow:hidden;
+}
+
+.templatePreview{
+  aspect-ratio:16/9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  font-weight:900;
+  padding:12px;
+  text-align:center;
+}
+
+.t1{
+  background:linear-gradient(135deg,#121b4c,#7c3cff);
+}
+
+.t2{
+  background:linear-gradient(135deg,#321116,#ff315e);
+}
+
+.t3{
+  background:linear-gradient(135deg,#071f1a,#00a982);
+}
+
+.t4{
+  background:linear-gradient(135deg,#151515,#555);
+}
+
+.t5{
+  background:linear-gradient(135deg,#29134c,#ff3c9d);
+}
+
+.t6{
+  background:linear-gradient(135deg,#17253b,#008dff);
+}
+
+.templateInfo{
+  padding:11px;
+}
+
+.templateInfo b{
+  display:block;
+  margin-bottom:9px;
+}
+
+.templateInfo button{
+  width:100%;
+}
+
+.ad{
+  min-height:72px;
+  margin:18px 0;
+  border:1px dashed #343950;
+  background:#090c17;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#656c84;
+  font-size:11px;
+  letter-spacing:1px;
+}
+
+.premiumCard{
+  padding:22px;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at top right,#ff3c9d25,transparent 45%),
+    linear-gradient(135deg,#151027,#0c1020);
+  border:1px solid #49346e;
+}
+
+.premiumCard h2{
+  margin:0 0 8px;
+}
+
+.premiumCard p{
+  color:#aaaec0;
+  line-height:1.5;
+}
+
+.featureList{
+  display:grid;
+  gap:9px;
+  margin:17px 0;
+}
+
+.feature{
+  padding:11px 13px;
+  border-radius:11px;
+  background:#ffffff06;
+  border:1px solid #ffffff0c;
+}
+
+/* EDITOR */
+
+.editorTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+
+.editorTop h2{
+  margin:0;
+}
+
+.canvasWrap{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  background:#02030a;
+  border:1px solid #282d44;
+  border-radius:18px;
+  padding:10px;
+  overflow:hidden;
+}
+
+#canvas{
+  width:100%;
+  display:block;
+  background:#151827;
+  border-radius:10px;
+  touch-action:none;
+}
+
+.toolbar{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+}
+
+.tool{
+  min-height:54px;
+  border:1px solid #2a2f48;
+  background:#0e1220;
+  color:#fff;
+  border-radius:13px;
+  font-weight:700;
+}
+
+.tool span{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
+}
+
+.controlPanel{
+  margin-top:14px;
+  padding:15px;
+  border:1px solid #292e47;
+  border-radius:17px;
+  background:#0b0f1c;
+}
+
+.controlRow{
+  display:flex;
+  gap:9px;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.controlRow:last-child{
+  margin-bottom:0;
+}
+
+.controlRow label{
+  width:90px;
+  color:#9ea5bd;
+  font-size:13px;
+}
+
+.controlRow input,
+.controlRow select{
+  flex:1;
+  min-width:0;
+}
+
+input[type="text"],
+input[type="number"],
+select{
+  background:#111525;
+  border:1px solid #30354f;
+  color:white;
+  border-radius:10px;
+  padding:10px;
+  outline:none;
+}
+
+input[type="color"]{
+  width:50px;
+  height:40px;
+  padding:2px;
+  background:#111525;
+  border:1px solid #30354f;
+  border-radius:10px;
+}
+
+input[type="range"]{
+  accent-color:#9a45ff;
+}
+
+.editorButtons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:12px;
+}
+
+.projectGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.project{
+  border:1px solid #292e47;
+  border-radius:15px;
+  background:#0d1020;
+  overflow:hidden;
+}
+
+.project canvas{
+  width:100%;
+  display:block;
+}
+
+.projectBody{
+  padding:10px;
+}
+
+.projectBody b{
+  display:block;
+  margin-bottom:8px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.projectActions{
+  display:flex;
+  gap:7px;
+}
+
+.projectActions button{
+  flex:1;
+  padding:9px 5px;
+  border-radius:9px;
+  border:1px solid #30354f;
+  background:#111525;
+  color:white;
+  font-size:12px;
+}
+
+.empty{
+  padding:35px 20px;
+  text-align:center;
+  border:1px dashed #30354f;
+  border-radius:16px;
+  color:#737b94;
+}
+
+.profileCard{
+  padding:20px;
+  border-radius:20px;
+  background:#0d1020;
+  border:1px solid #292e47;
+}
+
+.profileIcon{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#7438ff,#ff389c);
+  font-size:28px;
+  margin-bottom:15px;
+}
+
+.statGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+.stat{
+  padding:15px;
+  text-align:center;
+  background:#111525;
+  border:1px solid #292e47;
+  border-radius:13px;
+}
+
+.stat b{
+  display:block;
+  font-size:21px;
+}
+
+.stat span{
+  color:#858da5;
+  font-size:11px;
+}
+
+.bottomNav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:75px;
+  background:#090c18ee;
+  backdrop-filter:blur(15px);
+  border-top:1px solid #252940;
+  display:flex;
+  justify-content:space-around;
+  z-index:100;
+}
+
+.navBtn{
+  flex:1;
+  max-width:130px;
+  background:none;
+  border:0;
+  color:#747c96;
+  font-size:11px;
+}
+
+.navBtn span{
+  display:block;
+  font-size:22px;
+  margin-bottom:4px;
+}
+
+.navBtn.active{
+  color:#b45cff;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:#000b;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modalBox{
+  width:100%;
+  max-width:430px;
+  background:#0c101e;
+  border:1px solid #323750;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 20px 70px #000;
+}
+
+.modalBox h2{
+  margin-top:0;
+}
+
+.close{
+  float:right;
+  background:none;
+  border:0;
+  color:#9299b0;
+  font-size:25px;
+}
+
+.formGroup{
+  margin:13px 0;
+}
+
+.formGroup label{
+  display:block;
+  color:#9ba2ba;
+  font-size:12px;
+  margin-bottom:6px;
+}
+
+.formGroup input,
+.formGroup select{
+  width:100%;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:92px;
+  transform:translateX(-50%) translateY(20px);
+  background:#151a2b;
+  border:1px solid #353b58;
+  padding:11px 17px;
+  border-radius:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:300;
+  white-space:nowrap;
+  max-width:90%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.lock{
+  color:#ffbf4a;
+  font-size:11px;
+  margin-left:5px;
+}
+
+@media(max-width:700px){
+  .quickGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .templateGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .projectGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .toolbar{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .tool{
+    font-size:11px;
+  }
+
+  .tool span{
+    font-size:18px;
+  }
+}
+
+@media(max-width:450px){
+  .screen{
+    padding:13px;
+  }
+
+  .hero h1{
+    font-size:26px;
+  }
+
+  .templateGrid,
+  .projectGrid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .editorButtons{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .controlRow label{
+    width:72px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="logo">
+    <div class="logoBox">T</div>
+    <span>Thumbnail Maker Pro</span>
+  </div>
+
+  <div class="headerBtns">
+    <button class="iconBtn" onclick="openProfile()">👤</button>
+    <button class="iconBtn" onclick="showPremium()">👑</button>
+  </div>
+</header>
+
+<!-- HOME -->
+
+<section id="home" class="screen active">
+
+  <div class="hero">
+    <h1>Create Amazing<br>Thumbnails 🚀</h1>
+    <p>
+      Make professional YouTube thumbnails, Shorts covers,
+      Instagram posts and gaming designs directly from your phone.
+    </p>
+
+    <button class="primary" onclick="newProject()">
+      ✨ Start Creating
+    </button>
+  </div>
+
+  <div class="ad freeAd">
+    ADVERTISEMENT
+  </div>
+
+  <div class="sectionTitle">
+    <h2>Quick Create</h2>
+    <span>Choose size</span>
+  </div>
+
+  <div class="quickGrid">
+    <button class="quick" onclick="quickCreate('youtube')">
+      <span class="emoji">▶️</span>
+      <small>YouTube</small>
+    </button>
+
+    <button class="quick" onclick="quickCreate('shorts')">
+      <span class="emoji">📱</span>
+      <small>Shorts</small>
+    </button>
+
+    <button class="quick" onclick="quickCreate('instagram')">
+      <span class="emoji">📸</span>
+      <small>Instagram</small>
+    </button>
+
+    <button class="quick" onclick="quickCreate('post')">
+      <span class="emoji">🖼️</span>
+      <small>Post</small>
+    </button>
+  </div>
+
+  <div class="sectionTitle">
+    <h2>Ready Templates</h2>
+    <span onclick="showScreen('templates')">View all →</span>
+  </div>
+
+  <div class="templateGrid">
+
+    <div class="template">
+      <div class="templatePreview t1">EPIC<br>GAMEPLAY</div>
+      <div class="templateInfo">
+        <b>Gaming</b>
+        <button class="secondary" onclick="useTemplate(1)">Use</button>
+      </div>
+    </div>
+
+    <div class="template">
+      <div class="templatePreview t2">INSANE<br>CLUTCH!</div>
+      <div class="templateInfo">
+        <b>Clutch</b>
+        <button class="secondary" onclick="useTemplate(2)">Use</button>
+      </div>
+    </div>
+
+    <div class="template">
+      <div class="templatePreview t3">NEW VIDEO<br>🔥</div>
+      <div class="templateInfo">
+        <b>New Video</b>
+        <button class="secondary" onclick="useTemplate(3)">Use</button>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TEMPLATES -->
+
+<section id="templates" class="screen">
+
+  <div class="sectionTitle">
+    <h2>Templates</h2>
+    <span>Free + Premium</span>
+  </div>
+
+  <div class="templateGrid">
+
+    <div class="template">
+      <div class="templatePreview t1">EPIC<br>GAMEPLAY</div>
+      <div class="templateInfo">
+        <b>Gaming Pro</b>
+        <button class="primary" onclick="useTemplate(1)">Use Template</button>
+      </div>
+    </div>
+
+    <div class="template">
+      <div class="templatePreview t2">INSANE<br>CLUTCH!</div>
+      <div class="templateInfo">
+        <b>Red Action</b>
+        <button class="primary" onclick="useTemplate(2)">Use Template</button>
+      </div>
+    </div>
+
+    <div class="template">
+      <div class="templatePreview t3">NEW VIDEO<br>🔥</div>
+      <div class="templateInfo">
+        <b>Green Gaming</b>
+        <button class="primary" onclick="useTemplate(3)">Use Template</button>
+      </div>
+    </div>
+
+    <div class="template">
+      <div class="templatePreview t4">TOP<br>10</div>
+      <div class="templateInfo">
+        <b>Top 10</b>
+        <button class="primary" onclick="useTemplate(4)">Use Template</button>
+      </div>
+    </div>
+
+    <div class="template">
+      <div class="templatePreview t5">OMG 😱<br>WHAT?</div>
+      <div class="templateInfo">
+        <b>Reaction</b>
+        <button class="primary" onclick="useTemplate(5)">Use Template</button>
+      </div>
+    </div>
+
+    <div class="template">
+      <div class="templatePreview t6">PRO<br>PLAYER</div>
+      <div class="templateInfo">
+        <b>Pro Style</b>
+        <button class="primary" onclick="useTemplate(6)">Use Template</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ad freeAd">
+    ADVERTISEMENT
+  </div>
+
+</section>
+
+
+<!-- EDITOR -->
+
+<section id="editor" class="screen">
+
+  <div class="editorTop">
+    <h2>Editor</h2>
+    <button class="secondary" onclick="showScreen('home')">✕ Close</button>
+  </div>
+
+  <div class="canvasWrap">
+    <canvas id="canvas" width="1280" height="720"></canvas>
+  </div>
+
+  <div class="toolbar">
+
+    <button class="tool" onclick="addText()">
+      <span>🔤</span>Text
+    </button>
+
+    <button class="tool" onclick="openImagePicker()">
+      <span>🖼️</span>Photo
+    </button>
+
+    <button class="tool" onclick="addSticker()">
+      <span>😀</span>Sticker
+    </button>
+
+    <button class="tool" onclick="changeBackground()">
+      <span>🎨</span>BG
+    </button>
+
+  </div>
+
+  <div class="controlPanel">
+
+    <div class="controlRow">
+      <label>Format</label>
+      <select id="ratioSelect" onchange="changeRatio(this.value)">
+        <option value="youtube">YouTube 16:9</option>
+        <option value="shorts">Shorts 9:16</option>
+        <option value="instagram">Instagram 1:1</option>
+        <option value="post">Post 4:5</option>
+      </select>
+    </div>
+
+    <div class="controlRow">
+      <label>Text</label>
+      <input id="textInput" type="text" placeholder="Select text">
+    </div>
+
+    <div class="controlRow">
+      <label>Size</label>
+      <input id="sizeInput" type="range" min="20" max="180" value="70">
+    </div>
+
+    <div class="controlRow">
+      <label>Color</label>
+      <input id="colorInput" type="color" value="#ffffff">
+    </div>
+
+    <div class="controlRow">
+      <label>Opacity</label>
+      <input id="opacityInput" type="range" min="10" max="100" value="100">
+    </div>
+
+    <div class="editorButtons">
+
+      <button class="secondary" onclick="duplicateSelected()">
+        📋 Duplicate
+      </button>
+
+      <button class="secondary" onclick="deleteSelected()">
+        🗑️ Delete
+      </button>
+
+      <button class="secondary" onclick="saveProject()">
+        💾 Save
+      </button>
+
+      <button class="primary" onclick="downloadImage()">
+        ⬇️ Download
+      </button>
+
+      <button class="secondary" onclick="shareImage()">
+        📤 Share
+      </button>
+
+      <button class="secondary" onclick="clearCanvas()">
+        🔄 Reset
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="ad freeAd">
+    ADVERTISEMENT
+  </div>
+
+</section>
+
+
+<!-- PROJECTS -->
+
+<section id="projects" class="screen">
+
+  <div class="sectionTitle">
+    <h2>My Projects</h2>
+    <span id="projectCount">0/20</span>
+  </div>
+
+  <div id="projectList"></div>
+
+</section>
+
+
+<!-- PREMIUM -->
+
+<section id="premium" class="screen">
+
+  <div class="premiumCard">
+
+    <h2>👑 Thumbnail Maker Pro</h2>
+
+    <p>
+      Unlock the premium experience and create without interruptions.
+    </p>
+
+    <div class="featureList">
+
+      <div class="feature">✓ No advertisements</div>
+      <div class="feature">✓ Premium templates</div>
+      <div class="feature">✓ Unlimited designs</div>
+      <div class="feature">✓ Premium stickers</div>
+      <div class="feature">✓ High-quality downloads</div>
+      <div class="feature">✓ More creator tools</div>
+
+    </div>
+
+    <button class="primary" onclick="activatePremium()">
+      👑 Continue to Premium
+    </button>
+
+    <p style="font-size:11px;color:#707890">
+      Premium payment integration can be connected later.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="screen">
+
+  <div class="profileCard">
+
+    <div class="profileIcon">👤</div>
+
+    <h2 id="profileName">Creator</h2>
+
+    <p style="color:#858da5">
+      Thumbnail Maker Pro account
+    </p>
+
+    <div class="statGrid">
+
+      <div class="stat">
+        <b id="designStat">0</b>
+        <span>Designs</span>
+      </div>
+
+      <div class="stat">
+        <b id="downloadStat">0</b>
+        <span>Downloads</span>
+      </div>
+
+      <div class="stat">
+        <b id="statusStat">FREE</b>
+        <span>Plan</span>
+      </div>
+
+    </div>
+
+    <br>
+
+    <button class="primary" style="width:100%" onclick="showPremium()">
+      👑 View Premium
+    </button>
+
+  </div>
+
+  <div class="sectionTitle">
+    <h2>Account</h2>
+  </div>
+
+  <button class="secondary" style="width:100%;margin-bottom:10px"
+    onclick="openNameModal()">
+    ✏️ Change Creator Name
+  </button>
+
+  <button class="secondary" style="width:100%"
+    onclick="clearAllData()">
+    🧹 Clear Local Data
+  </button>
+
+</section>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottomNav">
+
+  <button class="navBtn active" data-screen="home"
+    onclick="showScreen('home')">
+    <span>🏠</span>Home
+  </button>
+
+  <button class="navBtn" data-screen="templates"
+    onclick="showScreen('templates')">
+    <span>🎨</span>Templates
+  </button>
+
+  <button class="navBtn" data-screen="editor"
+    onclick="newProject()">
+    <span>➕</span>Create
+  </button>
+
+  <button class="navBtn" data-screen="projects"
+    onclick="showScreen('projects');renderProjects()">
+    <span>📁</span>Projects
+  </button>
+
+  <button class="navBtn" data-screen="premium"
+    onclick="showPremium()">
+    <span>👑</span>Premium
+  </button>
+
+</nav>
+
+</div>
+
+
+<!-- IMAGE INPUT -->
+
+<input
+  type="file"
+  id="imageInput"
+  accept="image/*"
+  style="display:none"
+  onchange="handleImage(event)"
+>
+
+
+<!-- PREMIUM MODAL -->
+
+<div class="modal" id="premiumModal">
+
+  <div class="modalBox">
+
+    <button class="close" onclick="closeModal('premiumModal')">×</button>
+
+    <h2>👑 Go Premium</h2>
+
+    <p style="color:#9ca3b7">
+      Premium mode is ready for payment integration.
+    </p>
+
+    <div class="featureList">
+      <div class="feature">🚫 Remove ads</div>
+      <div class="feature">✨ Premium templates</div>
+      <div class="feature">📐 More formats</div>
+      <div class="feature">⬇️ HD downloads</div>
+    </div>
+
+    <button class="primary" style="width:100%"
+      onclick="activatePremium();closeModal('premiumModal')">
+      Activate Premium Demo
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- NAME MODAL -->
+
+<div class="modal" id="nameModal">
+
+  <div class="modalBox">
+
+    <button class="close" onclick="closeModal('nameModal')">×</button>
+
+    <h2>Creator Name</h2>
+
+    <div class="formGroup">
+      <label>Name</label>
+      <input id="nameInput" type="text" placeholder="Enter your name">
+    </div>
+
+    <button class="primary" style="width:100%"
+      onclick="saveName()">
+      Save Name
+    </button>
+
+  </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let objects = [];
+let selectedIndex = -1;
+let currentRatio = "youtube";
+let bgIndex = 0;
+let premium = localStorage.getItem("tmpremium") === "true";
+
+let appData = JSON.parse(
+  localStorage.getItem("tmdata") ||
+  '{"downloads":0,"designs":0,"name":"Creator"}'
+);
+
+const backgrounds = [
+  "#151827",
+  "#101936",
+  "#24122f",
+  "#102923",
+  "#30151b",
+  "#171717",
+  "#0c2031"
+];
+
+const ratioData = {
+  youtube:{
+    w:1280,
+    h:720
+  },
+  shorts:{
+    w:720,
+    h:1280
+  },
+  instagram:{
+    w:1080,
+    h:1080
+  },
+  post:{
+    w:1080,
+    h:1350
+  }
+};
+
+
+/* SCREEN */
+
+function showScreen(id){
+
+  document.querySelectorAll(".screen")
+    .forEach(x=>x.classList.remove("active"));
+
+  const screen = document.getElementById(id);
+
+  if(screen) screen.classList.add("active");
+
+  document.querySelectorAll(".navBtn")
+    .forEach(btn=>{
+      btn.classList.toggle(
+        "active",
+        btn.dataset.screen === id
+      );
+    });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  if(id === "profile") updateProfile();
+
+}
+
+
+/* TOAST */
+
+function toast(message){
+
+  const t = document.getElementById("toast");
+
+  t.textContent = message;
+  t.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer = setTimeout(()=>{
+    t.classList.remove("show");
+  },2200);
+
+}
+
+
+/* MODAL */
+
+function closeModal(id){
+  document.getElementById(id).classList.remove("show");
+}
+
+function openProfile(){
+  showScreen("profile");
+}
+
+function showPremium(){
+  document.getElementById("premiumModal").classList.add("show");
+}
+
+
+/* PROJECT */
+
+function newProject(){
+
+  currentRatio = "youtube";
+
+  document.getElementById("ratioSelect").value =
+    currentRatio;
+
+  setCanvasSize();
+
+  objects = [];
+  selectedIndex = -1;
+  bgIndex = 0;
+
+  draw();
+
+  showScreen("editor");
+
+  toast("New project created");
+
+}
+
+
+function quickCreate(type){
+
+  currentRatio = type;
+
+  document.getElementById("ratioSelect").value = type;
+
+  setCanvasSize();
+
+  objects = [];
+
+  bgIndex = 0;
+
+  draw();
+
+  showScreen("editor");
+
+  toast(type.toUpperCase()+" project created");
+
+}
+
+
+/* CANVAS */
+
+function setCanvasSize(){
+
+  const r = ratioData[currentRatio];
+
+  canvas.width = r.w;
+  canvas.height = r.h;
+
+  canvas.style.aspectRatio =
+    r.w + "/" + r.h;
+
+}
+
+
+function draw(){
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  ctx.fillStyle = backgrounds[bgIndex];
+
+  ctx.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  objects.forEach((obj,index)=>{
+
+    ctx.save();
+
+    ctx.globalAlpha =
+      obj.opacity === undefined
+      ? 1
+      : obj.opacity;
+
+    if(obj.type === "text"){
+
+      ctx.font =
+        "900 " + obj.size + "px Arial";
+
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      ctx.lineWidth = Math.max(3,obj.size/15);
+      ctx.strokeStyle = "#000";
+
+      ctx.strokeText(
+        obj.text,
+        obj.x,
+        obj.y
+      );
+
+      ctx.fillStyle = obj.color;
+
+      ctx.fillText(
+        obj.text,
+        obj.x,
+        obj.y
+      );
+
+    }
+
+    if(obj.type === "sticker"){
+
+      ctx.font =
+        obj.size + "px Arial";
+
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      ctx.fillText(
+        obj.text,
+        obj.x,
+        obj.y
+      );
+
+    }
+
+    if(obj.type === "image" && obj.img){
+
+      ctx.drawImage(
+        obj.img,
+        obj.x - obj.w/2,
+        obj.y - obj.h/2,
+        obj.w,
+        obj.h
+      );
+
+    }
+
+    ctx.restore();
+
+    if(index === selectedIndex){
+
+      ctx.save();
+
+      ctx.strokeStyle = "#b65cff";
+      ctx.lineWidth = 4;
+      ctx.setLineDash([10,7]);
+
+      let box;
+
+      if(obj.type === "text"){
+
+        ctx.font =
+          "900 " + obj.size + "px Arial";
+
+        const width =
+          ctx.measureText(obj.text).width;
+
+        box = {
+          x:obj.x-width/2-12,
+          y:obj.y-obj.size/2-12,
+          w:width+24,
+          h:obj.size+24
+        };
+
+      }else{
+
+        box = {
+          x:obj.x-(obj.w||obj.size)/2-10,
+          y:obj.y-(obj.h||obj.size)/2-10,
+          w:(obj.w||obj.size)+20,
+          h:(obj.h||obj.size)+20
+        };
+
+      }
+
+      ctx.strokeRect(
+        box.x,
+        box.y,
+        box.w,
+        box.h
+      );
+
+      ctx.restore();
+
+    }
+
+  });
+
+}
+
+
+/* TEXT */
+
+function addText(){
+
+  const obj = {
+    type:"text",
+    text:"YOUR TEXT",
+    x:canvas.width/2,
+    y:canvas.height/2,
+    size:70,
+    color:"#ffffff",
+    opacity:1
+  };
+
+  objects.push(obj);
+
+  selectedIndex =
+    objects.length-1;
+
+  syncControls();
+
+  draw();
+
+  toast("Text added");
+
+}
+
+
+function updateSelectedText(){
+
+  if(selectedIndex < 0) return;
+
+  const obj =
+    objects[selectedIndex];
+
+  if(obj.type !== "text") return;
+
+  obj.text =
+    document.getElementById("textInput").value ||
+    "YOUR TEXT";
+
+  obj.size =
+    Number(document.getElementById("sizeInput").value);
+
+  obj.color =
+    document.getElementById("colorInput").value;
+
+  obj.opacity =
+    Number(document.getElementById("opacityInput").value)/100;
+
+  draw();
+
+}
+
+document.getElementById("textInput")
+  .addEventListener("input",updateSelectedText);
+
+document.getElementById("sizeInput")
+  .addEventListener("input",updateSelectedText);
+
+document.getElementById("colorInput")
+  .addEventListener("input",updateSelectedText);
+
+document.getElementById("opacityInput")
+  .addEventListener("input",updateSelectedText);
+
+
+function syncControls(){
+
+  if(selectedIndex < 0){
+
+    document.getElementById("textInput").value="";
+    return;
+
+  }
+
+  const obj =
+    objects[selectedIndex];
+
+  if(obj.type === "text"){
+
+    document.getElementById("textInput").value =
+      obj.text;
+
+    document.getElementById("sizeInput").value =
+      obj.size;
+
+    document.getElementById("colorInput").value =
+      obj.color;
+
+    document.getElementById("opacityInput").value =
+      Math.round(obj.opacity*100);
+
+  }else{
+
+    document.getElementById("textInput").value="";
+
+  }
+
+}
+
+
+/* STICKER */
+
+function addSticker(){
+
+  const stickers = [
+    "🔥","😱","😂","😍","💥","⚡",
+    "👑","🎯","💀","❤️","😎","🚀"
+  ];
+
+  const sticker =
+    stickers[Math.floor(Math.random()*stickers.length)];
+
+  objects.push({
+    type:"sticker",
+    text:sticker,
+    x:canvas.width/2,
+    y:canvas.height/2,
+    size:100,
+    opacity:1
+  });
+
+  selectedIndex =
+    objects.length-1;
+
+  draw();
+
+  toast("Sticker added");
+
+}
+
+
+/* IMAGE */
+
+function openImagePicker(){
+
+  document.getElementById("imageInput").click();
+
+}
+
+
+function handleImage(event){
+
+  const file =
+    event.target.files[0];
+
+  if(!file) return;
+
+  const img = new Image();
+
+  img.onload = function(){
+
+    const maxW =
+      canvas.width * .55;
+
+    const maxH =
+      canvas.height * .55;
+
+    let w = img.width;
+    let h = img.height;
+
+    const scale =
+      Math.min(
+        maxW/w,
+        maxH/h,
+        1
+      );
+
+    w *= scale;
+    h *= scale;
+
+    objects.push({
+      type:"image",
+      img:img,
+      src:event.target.result,
+      x:canvas.width/2,
+      y:canvas.height/2,
+      w:w,
+      h:h,
+      opacity:1
+    });
+
+    selectedIndex =
+      objects.length-1;
+
+    draw();
+
+    toast("Photo added");
+
+  };
+
+  const reader =
+    new FileReader();
+
+  reader.onload =
+    e=>img.src=e.target.result;
+
+  reader.readAsDataURL(file);
+
+  event.target.value="";
+
+}
+
+
+/* BACKGROUND */
+
+function changeBackground(){
+
+  bgIndex++;
+
+  if(bgIndex >= backgrounds.length)
+    bgIndex=0;
+
+  draw();
+
+  toast("Background changed");
+
+}
+
+
+/* RATIO */
+
+function changeRatio(value){
+
+  currentRatio = value;
+
+  setCanvasSize();
+
+  draw();
+
+  toast("Format changed");
+
+}
+
+
+/* SELECT / DRAG */
+
+function getCanvasPosition(e){
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+  let clientX;
+  let clientY;
+
+  if(e.touches){
+
+    clientX =
+      e.touches[0].clientX;
+
+    clientY =
+      e.touches[0].clientY;
+
+  }else{
+
+    clientX=e.clientX;
+    clientY=e.clientY;
+
+  }
+
+  return {
+    x:
+      (clientX-rect.left) *
+      (canvas.width/rect.width),
+
+    y:
+      (clientY-rect.top) *
+      (canvas.height/rect.height)
+  };
+
+}
+
+
+function hitTest(x,y){
+
+  for(let i=objects.length-1;i>=0;i--){
+
+    const o=objects[i];
+
+    if(o.type==="text"){
+
+      ctx.font =
+        "900 "+o.size+"px Arial";
+
+      const w =
+        ctx.measureText(o.text).width;
+
+      if(
+        x >= o.x-w/2-20 &&
+        x <= o.x+w/2+20 &&
+        y >= o.y-o.size/2-20 &&
+        y <= o.y+o.size/2+20
+      ){
+        return i;
+      }
+
+    }
+
+    else if(o.type==="image"){
+
+      if(
+        x >= o.x-o.w/2 &&
+        x <= o.x+o.w/2 &&
+        y >= o.y-o.h/2 &&
+        y <= o.y+o.h/2
+      ){
+        return i;
+      }
+
+    }
+
+    else if(o.type==="sticker"){
+
+      if(
+        x >= o.x-o.size/2 &&
+        x <= o.x+o.size/2 &&
+        y >= o.y-o.size/2 &&
+        y <= o.y+o.size/2
+      ){
+        return i;
+      }
+
+    }
+
+  }
+
+  return -1;
+
+}
+
+
+let dragging=false;
+
+canvas.addEventListener("pointerdown",e=>{
+
+  const p =
+    getCanvasPosition(e);
+
+  selectedIndex =
+    hitTest(p.x,p.y);
+
+  if(selectedIndex >= 0){
+
+    dragging=true;
+
+    canvas.setPointerCapture(e.pointerId);
+
+    syncControls();
+
+    draw();
+
+  }
+
+});
+
+
+canvas.addEventListener("pointermove",e=>{
+
+  if(!dragging || selectedIndex<0)
+    return;
+
+  const p =
+    getCanvasPosition(e);
+
+  objects[selectedIndex].x=p.x;
+  objects[selectedIndex].y=p.y;
+
+  draw();
+
+});
+
+
+canvas.addEventListener("pointerup",()=>{
+  dragging=false;
+});
+
+canvas.addEventListener("pointercancel",()=>{
+  dragging=false;
+});
+
+
+/* OBJECT ACTIONS */
+
+function deleteSelected(){
+
+  if(selectedIndex < 0){
+
+    toast("Select an object first");
+    return;
+
+  }
+
+  objects.splice(
+    selectedIndex,
+    1
+  );
+
+  selectedIndex=-1;
+
+  draw();
+
+  toast("Deleted");
+
+}
+
+
+function duplicateSelected(){
+
+  if(selectedIndex < 0){
+
+    toast("Select an object first");
+    return;
+
+  }
+
+  const old =
+    objects[selectedIndex];
+
+  const copy =
+    {...old};
+
+  copy.x += 35;
+  copy.y += 35;
+
+  if(old.type==="image"){
+
+    copy.img=old.img;
+    copy.src=old.src;
+
+  }
+
+  objects.push(copy);
+
+  selectedIndex =
+    objects.length-1;
+
+  draw();
+
+  toast("Duplicated");
+
+}
+
+
+/* TEMPLATE */
+
+function useTemplate(id){
+
+  newProject();
+
+  const texts = {
+    1:"EPIC GAMEPLAY",
+    2:"INSANE CLUTCH!",
+    3:"NEW VIDEO 🔥",
+    4:"TOP 10",
+    5:"OMG 😱 WHAT?",
+    6:"PRO PLAYER"
+  };
+
+  const colors = [
+    "#ffffff",
+    "#ffdf3d",
+    "#ffffff",
+    "#ffffff",
+    "#ff4c8b",
+    "#65d9ff"
+  ];
+
+  bgIndex =
+    (id-1) % backgrounds.length;
+
+  objects=[
+    {
+      type:"text",
+      text:texts[id] || "NEW VIDEO",
+      x:canvas.width/2,
+      y:canvas.height/2,
+      size:Math.round(canvas.width/12),
+      color:colors[id-1] || "#ffffff",
+      opacity:1
+    }
+  ];
+
+  selectedIndex=0;
+
+  draw();
+
+  syncControls();
+
+  showScreen("editor");
+
+  toast("Template loaded");
+
+}
+
+
+/* SAVE PROJECT */
+
+function serializeObjects(){
+
+  return objects.map(o=>{
+
+    const copy={...o};
+
+    delete copy.img;
+
+    return copy;
+
+  });
+
+}
+
+
+function saveProject(){
+
+  let projects =
+    JSON.parse(
+      localStorage.getItem("tmprojects") || "[]"
+    );
+
+  if(projects.length>=20){
+
+    toast("Maximum 20 projects reached");
+    return;
+
+  }
+
+  const project={
+    id:Date.now(),
+    name:"Thumbnail "+new Date().toLocaleDateString(),
+    ratio:currentRatio,
+    bgIndex:bgIndex,
+    objects:serializeObjects(),
+    imageSources:objects
+      .filter(o=>o.type==="image")
+      .map(o=>({
+        src:o.src
+      }))
+  };
+
+  projects.unshift(project);
+
+  localStorage.setItem(
+    "tmprojects",
+    JSON.stringify(projects)
+  );
+
+  appData.designs++;
+
+  localStorage.setItem(
+    "tmdata",
+    JSON.stringify(appData)
+  );
+
+  toast("Project saved");
+
+  renderProjects();
+
+}
+
+
+/* PROJECT LIST */
+
+function renderProjects(){
+
+  const container =
+    document.getElementById("projectList");
+
+  const projects =
+    JSON.parse(
+      localStorage.getItem("tmprojects") || "[]"
+    );
+
+  document.getElementById("projectCount").textContent =
+    projects.length+"/20";
+
+  if(projects.length===0){
+
+    container.innerHTML =
+      `<div class="empty">
+        📁<br><br>
+        No projects yet.<br>
+        Create your first thumbnail.
+      </div>`;
+
+    return;
+
+  }
+
+  container.innerHTML="";
+
+  projects.forEach(project=>{
+
+    const card =
+      document.createElement("div");
+
+    card.className="project";
+
+    const preview =
+      document.createElement("canvas");
+
+    preview.width=320;
+    preview.height=
+      Math.round(
+        320 /
+        (ratioData[project.ratio].w /
+         ratioData[project.ratio].h)
+      );
+
+    const pctx =
+      preview.getContext("2d");
+
+    pctx.fillStyle =
+      backgrounds[project.bgIndex || 0];
+
+    pctx.fillRect(
+      0,0,
+      preview.width,
+      preview.height
+    );
+
+    project.objects.forEach(o=>{
+
+      if(o.type==="text"){
+
+        const scale =
+          preview.width /
+          ratioData[project.ratio].w;
+
+        pctx.font =
+          "900 "+(o.size*scale)+"px Arial";
+
+        pctx.textAlign="center";
+        pctx.textBaseline="middle";
+
+        pctx.fillStyle=o.color;
+
+        pctx.fillText(
+          o.text,
+          o.x*scale,
+          o.y*scale
+        );
+
+      }
+
+      if(o.type==="sticker"){
+
+        const scale =
+          preview.width /
+          ratioData[project.ratio].w;
+
+        pctx.font =
+          (o.size*scale)+"px Arial";
+
+        pctx.textAlign="center";
+        pctx.textBaseline="middle";
+
+        pctx.fillText(
+          o.text,
+          o.x*scale,
+          o.y*scale
+        );
+
+      }
+
+    });
+
+    const body =
+      document.createElement("div");
+
+    body.className="projectBody";
+
+    body.innerHTML=`
+      <b>${escapeHtml(project.name)}</b>
+      <div class="projectActions">
+        <button onclick="loadProject(${project.id})">
+          Open
+        </button>
+        <button onclick="deleteProject(${project.id})">
+          Delete
+        </button>
+      </div>
+    `;
+
+    card.appendChild(preview);
+    card.appendChild(body);
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+function escapeHtml(text){
+
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function loadProject(id){
+
+  const projects =
+    JSON.parse(
+      localStorage.getItem("tmprojects") || "[]"
+    );
+
+  const project =
+    projects.find(p=>p.id===id);
+
+  if(!project) return;
+
+  currentRatio =
+    project.ratio || "youtube";
+
+  bgIndex =
+    project.bgIndex || 0;
+
+  setCanvasSize();
+
+  objects =
+    project.objects.map(o=>{
+
+      const copy={...o};
+
+      if(copy.type==="image" && copy.src){
+
+        const img =
+          new Image();
+
+        img.onload=()=>{
+          draw();
+        };
+
+        img.src=copy.src;
+
+        copy.img=img;
+
+      }
+
+      return copy;
+
+    });
+
+  selectedIndex=-1;
+
+  draw();
+
+  showScreen("editor");
+
+  toast("Project loaded");
+
+}
+
+
+function deleteProject(id){
+
+  if(!confirm("Delete this project?"))
+    return;
+
+  let projects =
+    JSON.parse(
+      localStorage.getItem("tmprojects") || "[]"
+    );
+
+  projects =
+    projects.filter(p=>p.id!==id);
+
+  localStorage.setItem(
+    "tmprojects",
+    JSON.stringify(projects)
+  );
+
+  renderProjects();
+
+  toast("Project deleted");
+
+}
+
+
+/* DOWNLOAD */
+
+function downloadImage(){
+
+  const link =
+    document.createElement("a");
+
+  link.download =
+    "thumbnail-maker-"+Date.now()+".png";
+
+  link.href =
+    canvas.toDataURL("image/png");
+
+  link.click();
+
+  appData.downloads++;
+
+  localStorage.setItem(
+    "tmdata",
+    JSON.stringify(appData)
+  );
+
+  updateProfile();
+
+  toast("Thumbnail downloaded");
+
+}
+
+
+/* SHARE */
+
+async function shareImage(){
+
+  canvas.toBlob(async blob=>{
+
+    if(!blob){
+
+      toast("Unable to share");
+      return;
+
+    }
+
+    const file =
+      new File(
+        [blob],
+        "thumbnail.png",
+        {type:"image/png"}
+      );
+
+    if(
+      navigator.canShare &&
+      navigator.canShare({files:[file]})
+    ){
+
+      try{
+
+        await navigator.share({
+          title:"My Thumbnail",
+          text:"Created with Thumbnail Maker Pro",
+          files:[file]
+        });
+
+        toast("Shared successfully");
+
+      }catch(e){}
+
+    }else{
+
+      downloadImage();
+
+      toast("Sharing unavailable — downloaded instead");
+
+    }
+
+  },"image/png");
+
+}
+
+
+/* PREMIUM */
+
+function activatePremium(){
+
+  premium=true;
+
+  localStorage.setItem(
+    "tmpremium",
+    "true"
+  );
+
+  updateAds();
+
+  updateProfile();
+
+  toast("Premium demo activated");
+
+}
+
+
+function updateAds(){
+
+  document
+    .querySelectorAll(".freeAd")
+    .forEach(ad=>{
+
+      if(premium){
+
+        ad.style.display="none";
+
+      }else{
+
+        ad.style.display="flex";
+
+      }
+
+    });
+
+}
+
+
+/* PROFILE */
+
+function updateProfile(){
+
+  document.getElementById("designStat").textContent =
+    appData.designs;
+
+  document.getElementById("downloadStat").textContent =
+    appData.downloads;
+
+  document.getElementById("profileName").textContent =
+    appData.name || "Creator";
+
+  document.getElementById("statusStat").textContent =
+    premium ? "PRO" : "FREE";
+
+}
+
+
+function openNameModal(){
+
+  document.getElementById("nameInput").value =
+    appData.name || "Creator";
+
+  document
+    .getElementById("nameModal")
+    .classList.add("show");
+
+}
+
+
+function saveName(){
+
+  const name =
+    document.getElementById("nameInput").value.trim();
+
+  if(!name){
+
+    toast("Enter a name");
+    return;
+
+  }
+
+  appData.name=name;
+
+  localStorage.setItem(
+    "tmdata",
+    JSON.stringify(appData)
+  );
+
+  closeModal("nameModal");
+
+  updateProfile();
+
+  toast("Name updated");
+
+}
+
+
+/* RESET */
+
+function clearCanvas(){
+
+  if(!confirm("Reset this design?"))
+    return;
+
+  objects=[];
+  selectedIndex=-1;
+  bgIndex=0;
+
+  draw();
+
+  toast("Canvas reset");
+
+}
+
+
+function clearAllData(){
+
+  if(!confirm(
+    "This will delete local projects and settings. Continue?"
+  )) return;
+
+  localStorage.removeItem("tmprojects");
+  localStorage.removeItem("tmdata");
+  localStorage.removeItem("tmpremium");
+
+  premium=false;
+
+  appData={
+    downloads:0,
+    designs:0,
+    name:"Creator"
+  };
+
+  renderProjects();
+  updateProfile();
+  updateAds();
+
+  toast("Local data cleared");
+
+}
+
+
+/* INITIALIZE */
+
+setCanvasSize();
+draw();
+renderProjects();
+updateProfile();
+updateAds();
+
+
+/*
+========================================================
+ADVERTISEMENT INTEGRATION AREA
+========================================================
+
+IMPORTANT:
+
+Ye abhi placeholder ad hai.
+
+Real Google ads ke liye actual ad network account
+aur approved ad unit IDs ki zarurat hoti hai.
+
+Fake AdMob IDs ya fake earning yahan use nahi ki gayi.
+
+Web version me approved web advertising setup use hoga.
+
+Native Android APK version me Google Mobile Ads SDK
+integrate kiya ja sakta hai.
+
+========================================================
+*/
+
+</script>
+
+</body>
+</html>
