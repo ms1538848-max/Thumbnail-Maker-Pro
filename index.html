@@ -609,6 +609,19 @@ input[type="range"]{
   margin-left:5px;
 }
 
+/* IMAGE SIZE CONTROL */
+
+#imageSizeRow{
+  display:none;
+}
+
+#imageSizeValue{
+  width:45px;
+  text-align:right;
+  color:#9ea5bd;
+  font-size:12px;
+}
+
 @media(max-width:700px){
   .quickGrid{
     grid-template-columns:repeat(2,1fr);
@@ -890,6 +903,20 @@ input[type="range"]{
     <div class="controlRow">
       <label>Opacity</label>
       <input id="opacityInput" type="range" min="10" max="100" value="100">
+    </div>
+
+    <!-- NEW IMAGE SIZE CONTROL -->
+
+    <div class="controlRow" id="imageSizeRow">
+      <label>Image Size</label>
+      <input
+        id="imageSizeInput"
+        type="range"
+        min="20"
+        max="300"
+        value="100"
+      >
+      <span id="imageSizeValue">100%</span>
     </div>
 
     <div class="editorButtons">
@@ -1266,6 +1293,8 @@ function newProject(){
 
   draw();
 
+  syncControls();
+
   showScreen("editor");
 
   toast("New project created");
@@ -1283,9 +1312,13 @@ function quickCreate(type){
 
   objects = [];
 
+  selectedIndex = -1;
+
   bgIndex = 0;
 
   draw();
+
+  syncControls();
 
   showScreen("editor");
 
@@ -1512,11 +1545,55 @@ document.getElementById("opacityInput")
   .addEventListener("input",updateSelectedText);
 
 
+/* IMAGE SIZE */
+
+document.getElementById("imageSizeInput")
+  .addEventListener("input",function(){
+
+    if(selectedIndex < 0) return;
+
+    const obj =
+      objects[selectedIndex];
+
+    if(obj.type !== "image") return;
+
+    const value =
+      Number(this.value);
+
+    const baseW =
+      obj.baseW || obj.w;
+
+    const baseH =
+      obj.baseH || obj.h;
+
+    obj.baseW = baseW;
+    obj.baseH = baseH;
+
+    obj.w =
+      baseW * value / 100;
+
+    obj.h =
+      baseH * value / 100;
+
+    document.getElementById("imageSizeValue")
+      .textContent = value+"%";
+
+    draw();
+
+  });
+
+
 function syncControls(){
+
+  const imageRow =
+    document.getElementById("imageSizeRow");
 
   if(selectedIndex < 0){
 
     document.getElementById("textInput").value="";
+
+    imageRow.style.display="none";
+
     return;
 
   }
@@ -1538,9 +1615,36 @@ function syncControls(){
     document.getElementById("opacityInput").value =
       Math.round(obj.opacity*100);
 
-  }else{
+    imageRow.style.display="none";
+
+  }
+
+  else if(obj.type === "image"){
 
     document.getElementById("textInput").value="";
+
+    imageRow.style.display="flex";
+
+    const baseW =
+      obj.baseW || obj.w;
+
+    const value =
+      Math.round((obj.w/baseW)*100);
+
+    document.getElementById("imageSizeInput").value =
+      Math.max(20,Math.min(300,value));
+
+    document.getElementById("imageSizeValue")
+      .textContent =
+      Math.max(20,Math.min(300,value))+"%";
+
+  }
+
+  else{
+
+    document.getElementById("textInput").value="";
+
+    imageRow.style.display="none";
 
   }
 
@@ -1570,6 +1674,8 @@ function addSticker(){
 
   selectedIndex =
     objects.length-1;
+
+  syncControls();
 
   draw();
 
@@ -1625,11 +1731,15 @@ function handleImage(event){
       y:canvas.height/2,
       w:w,
       h:h,
+      baseW:w,
+      baseH:h,
       opacity:1
     });
 
     selectedIndex =
       objects.length-1;
+
+    syncControls();
 
     draw();
 
@@ -1845,6 +1955,8 @@ function deleteSelected(){
 
   selectedIndex=-1;
 
+  syncControls();
+
   draw();
 
   toast("Deleted");
@@ -1875,12 +1987,17 @@ function duplicateSelected(){
     copy.img=old.img;
     copy.src=old.src;
 
+    copy.baseW=old.baseW || old.w;
+    copy.baseH=old.baseH || old.h;
+
   }
 
   objects.push(copy);
 
   selectedIndex =
     objects.length-1;
+
+  syncControls();
 
   draw();
 
@@ -2169,6 +2286,9 @@ function loadProject(id){
   bgIndex =
     project.bgIndex || 0;
 
+  document.getElementById("ratioSelect").value =
+    currentRatio;
+
   setCanvasSize();
 
   objects =
@@ -2189,6 +2309,12 @@ function loadProject(id){
 
         copy.img=img;
 
+        copy.baseW =
+          copy.baseW || copy.w;
+
+        copy.baseH =
+          copy.baseH || copy.h;
+
       }
 
       return copy;
@@ -2196,6 +2322,8 @@ function loadProject(id){
     });
 
   selectedIndex=-1;
+
+  syncControls();
 
   draw();
 
@@ -2420,6 +2548,8 @@ function clearCanvas(){
   objects=[];
   selectedIndex=-1;
   bgIndex=0;
+
+  syncControls();
 
   draw();
 
