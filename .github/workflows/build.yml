@@ -17,24 +17,22 @@ jobs:
         with:
           node-version: 20
 
-      - name: Setup Java JDK
+      - name: Setup Java JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '17'
+          java-version: '21'
 
-      - name: Prepare Web Assets
+      - name: Prepare Web Directory
         run: |
           mkdir -p www
-          cp -r index.html www/ || true
-          cp -r *.css www/ || true
-          cp -r *.js www/ || true
-          cp -r assets www/ || true
+          cp -r * www/ 2>/dev/null || true
+          rm -rf www/www www/.git www/.github
 
       - name: Setup Capacitor and AdMob
         run: |
           npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor-community/admob
+          npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest @capacitor-community/admob@latest
           npx cap init "Thumbnail Maker Pro" "com.thumbnailmaker.pro" --web-dir "www"
           npx cap add android
           npx cap sync android
