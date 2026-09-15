@@ -2,2621 +2,2631 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#080914">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Thumbnail Maker Pro</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Bebas+Neue&family=Black+Ops+One&family=Bungee&family=Exo+2:wght@400;600;700;800&family=Fjalla+One&family=Inter:wght@400;600;700;800&family=Luckiest+Guy&family=Montserrat:wght@400;600;700;800;900&family=Orbitron:wght@400;600;700;800;900&family=Oswald:wght@400;600;700&family=Permanent+Marker&family=Playfair+Display:wght@400;700;900&family=Poppins:wght@400;500;600;700;800;900&family=Press+Start+2P&family=Righteous&family=Roboto:wght@400;700;900&family=Russo+One&family=Squada+One&family=Teko:wght@400;600;700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+*{box-sizing:border-box}
+:root{
+ --bg:#070914;
+ --panel:#0d1020;
+ --panel2:#11152a;
+ --card:#151a30;
+ --line:#292f4b;
+ --muted:#9da5c0;
+ --accent:#7c5cff;
+ --accent2:#00d4ff;
+ --danger:#ff4d6d;
+ --good:#22d3a7;
+ --white:#fff;
 }
-
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:#050711;
-  color:#fff;
+ margin:0;background:var(--bg);color:#fff;
+ font-family:Inter,Arial,sans-serif;
+ overflow:hidden;
 }
-
-button,input,select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-.app{
-  min-height:100vh;
-  padding-bottom:82px;
-}
-
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{height:100vh;display:flex;flex-direction:column}
 header{
-  height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 18px;
-  background:#090c18;
-  border-bottom:1px solid #20243a;
-  position:sticky;
-  top:0;
-  z-index:50;
+ height:62px;display:flex;align-items:center;justify-content:space-between;
+ padding:0 16px;background:var(--panel);
+ border-bottom:1px solid var(--line);flex-shrink:0;
 }
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:19px;
-  font-weight:800;
+.logo{font-weight:900;font-size:18px}
+.logo span{color:var(--accent)}
+.headerRight{display:flex;gap:7px}
+.iconBtn,.smallBtn{
+ border:1px solid var(--line);background:var(--card);color:#fff;
+ border-radius:10px;min-width:40px;height:38px;padding:0 11px;
 }
-
-.logoBox{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#7c3cff,#ff3c9d);
-  box-shadow:0 0 20px #7c3cff55;
-  font-size:20px;
-}
-
-.headerBtns{
-  display:flex;
-  gap:8px;
-}
-
-.iconBtn{
-  width:40px;
-  height:40px;
-  border:1px solid #292d45;
-  border-radius:12px;
-  background:#111525;
-  color:white;
-}
-
-.screen{
-  display:none;
-  padding:18px;
-  max-width:1100px;
-  margin:auto;
-}
-
-.screen.active{
-  display:block;
-}
-
+.iconBtn:hover,.smallBtn:hover,.tool:hover{border-color:var(--accent)}
+.main{flex:1;overflow:auto;position:relative}
+.page{display:none;min-height:100%;padding:18px}
+.page.active{display:block}
 .hero{
-  margin-top:10px;
-  padding:24px 20px;
-  border-radius:24px;
-  background:
-    radial-gradient(circle at top right,#7c3cff35,transparent 40%),
-    radial-gradient(circle at bottom left,#ff3c9d25,transparent 40%),
-    #0d1020;
-  border:1px solid #292d45;
+ background:linear-gradient(135deg,#151a35,#0d1020);
+ border:1px solid var(--line);border-radius:20px;padding:22px;
+ margin-bottom:18px;
 }
-
-.hero h1{
-  margin:0 0 10px;
-  font-size:31px;
-  line-height:1.1;
+.hero h1{margin:0 0 7px;font-size:28px}
+.hero p{color:var(--muted);margin:0}
+.grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;
 }
-
-.hero p{
-  color:#a9afc5;
-  line-height:1.5;
-  margin:0 0 20px;
+.card{
+ background:var(--card);border:1px solid var(--line);
+ border-radius:15px;padding:16px;
 }
-
+.createCard{
+ min-height:120px;display:flex;flex-direction:column;
+ justify-content:space-between;text-align:left;
+ color:#fff;
+}
+.createCard strong{font-size:16px}
+.createCard small{color:var(--muted)}
+.createCard .emoji{font-size:30px}
 .primary{
-  border:0;
-  color:white;
-  padding:13px 18px;
-  border-radius:13px;
-  font-weight:800;
-  background:linear-gradient(135deg,#7438ff,#ff389c);
-  box-shadow:0 8px 25px #7c3cff30;
+ border:0;background:linear-gradient(135deg,var(--accent),#5b3fe7);
+ color:#fff;border-radius:11px;padding:11px 15px;font-weight:800;
 }
-
-.secondary{
-  border:1px solid #30354f;
-  color:white;
-  padding:12px 16px;
-  border-radius:13px;
-  font-weight:700;
-  background:#111525;
-}
-
-.sectionTitle{
-  margin:25px 0 13px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.sectionTitle h2{
-  margin:0;
-  font-size:19px;
-}
-
-.sectionTitle span{
-  color:#8e95ae;
-  font-size:13px;
-}
-
-.quickGrid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-
-.quick{
-  padding:16px 10px;
-  border:1px solid #282c43;
-  background:#0d1020;
-  border-radius:17px;
-  color:white;
-  text-align:center;
-}
-
-.quick .emoji{
-  font-size:25px;
-  display:block;
-  margin-bottom:8px;
-}
-
-.quick small{
-  color:#aab0c3;
-}
-
-.templateGrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:13px;
-}
-
-.template{
-  background:#0d1020;
-  border:1px solid #282c43;
-  border-radius:17px;
-  overflow:hidden;
-}
-
-.templatePreview{
-  aspect-ratio:16/9;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  font-weight:900;
-  padding:12px;
-  text-align:center;
-}
-
-.t1{
-  background:linear-gradient(135deg,#121b4c,#7c3cff);
-}
-
-.t2{
-  background:linear-gradient(135deg,#321116,#ff315e);
-}
-
-.t3{
-  background:linear-gradient(135deg,#071f1a,#00a982);
-}
-
-.t4{
-  background:linear-gradient(135deg,#151515,#555);
-}
-
-.t5{
-  background:linear-gradient(135deg,#29134c,#ff3c9d);
-}
-
-.t6{
-  background:linear-gradient(135deg,#17253b,#008dff);
-}
-
-.templateInfo{
-  padding:11px;
-}
-
-.templateInfo b{
-  display:block;
-  margin-bottom:9px;
-}
-
-.templateInfo button{
-  width:100%;
-}
-
-.ad{
-  min-height:72px;
-  margin:18px 0;
-  border:1px dashed #343950;
-  background:#090c17;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#656c84;
-  font-size:11px;
-  letter-spacing:1px;
-}
-
-.premiumCard{
-  padding:22px;
-  border-radius:22px;
-  background:
-    radial-gradient(circle at top right,#ff3c9d25,transparent 45%),
-    linear-gradient(135deg,#151027,#0c1020);
-  border:1px solid #49346e;
-}
-
-.premiumCard h2{
-  margin:0 0 8px;
-}
-
-.premiumCard p{
-  color:#aaaec0;
-  line-height:1.5;
-}
-
-.featureList{
-  display:grid;
-  gap:9px;
-  margin:17px 0;
-}
-
-.feature{
-  padding:11px 13px;
-  border-radius:11px;
-  background:#ffffff06;
-  border:1px solid #ffffff0c;
-}
-
-/* EDITOR */
-
-.editorTop{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:14px;
-}
-
-.editorTop h2{
-  margin:0;
-}
-
-.canvasWrap{
-  width:100%;
-  max-width:900px;
-  margin:auto;
-  background:#02030a;
-  border:1px solid #282d44;
-  border-radius:18px;
-  padding:10px;
-  overflow:hidden;
-}
-
-#canvas{
-  width:100%;
-  display:block;
-  background:#151827;
-  border-radius:10px;
-  touch-action:none;
-}
-
-.toolbar{
-  margin-top:14px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:9px;
-}
-
-.tool{
-  min-height:54px;
-  border:1px solid #2a2f48;
-  background:#0e1220;
-  color:#fff;
-  border-radius:13px;
-  font-weight:700;
-}
-
-.tool span{
-  display:block;
-  font-size:20px;
-  margin-bottom:3px;
-}
-
-.controlPanel{
-  margin-top:14px;
-  padding:15px;
-  border:1px solid #292e47;
-  border-radius:17px;
-  background:#0b0f1c;
-}
-
-.controlRow{
-  display:flex;
-  gap:9px;
-  align-items:center;
-  margin-bottom:10px;
-}
-
-.controlRow:last-child{
-  margin-bottom:0;
-}
-
-.controlRow label{
-  width:90px;
-  color:#9ea5bd;
-  font-size:13px;
-}
-
-.controlRow input,
-.controlRow select{
-  flex:1;
-  min-width:0;
-}
-
-input[type="text"],
-input[type="number"],
-select{
-  background:#111525;
-  border:1px solid #30354f;
-  color:white;
-  border-radius:10px;
-  padding:10px;
-  outline:none;
-}
-
-input[type="color"]{
-  width:50px;
-  height:40px;
-  padding:2px;
-  background:#111525;
-  border:1px solid #30354f;
-  border-radius:10px;
-}
-
-input[type="range"]{
-  accent-color:#9a45ff;
-}
-
-.editorButtons{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-  margin-top:12px;
-}
-
-.projectGrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.project{
-  border:1px solid #292e47;
-  border-radius:15px;
-  background:#0d1020;
-  overflow:hidden;
-}
-
-.project canvas{
-  width:100%;
-  display:block;
-}
-
-.projectBody{
-  padding:10px;
-}
-
-.projectBody b{
-  display:block;
-  margin-bottom:8px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.projectActions{
-  display:flex;
-  gap:7px;
-}
-
-.projectActions button{
-  flex:1;
-  padding:9px 5px;
-  border-radius:9px;
-  border:1px solid #30354f;
-  background:#111525;
-  color:white;
-  font-size:12px;
-}
-
-.empty{
-  padding:35px 20px;
-  text-align:center;
-  border:1px dashed #30354f;
-  border-radius:16px;
-  color:#737b94;
-}
-
-.profileCard{
-  padding:20px;
-  border-radius:20px;
-  background:#0d1020;
-  border:1px solid #292e47;
-}
-
-.profileIcon{
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,#7438ff,#ff389c);
-  font-size:28px;
-  margin-bottom:15px;
-}
-
-.statGrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-top:15px;
-}
-
-.stat{
-  padding:15px;
-  text-align:center;
-  background:#111525;
-  border:1px solid #292e47;
-  border-radius:13px;
-}
-
-.stat b{
-  display:block;
-  font-size:21px;
-}
-
-.stat span{
-  color:#858da5;
-  font-size:11px;
-}
-
+.danger{background:var(--danger)!important}
 .bottomNav{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:75px;
-  background:#090c18ee;
-  backdrop-filter:blur(15px);
-  border-top:1px solid #252940;
-  display:flex;
-  justify-content:space-around;
-  z-index:100;
+ height:68px;background:var(--panel);border-top:1px solid var(--line);
+ display:grid;grid-template-columns:repeat(5,1fr);flex-shrink:0;
 }
-
 .navBtn{
-  flex:1;
-  max-width:130px;
-  background:none;
-  border:0;
-  color:#747c96;
-  font-size:11px;
+ border:0;background:none;color:var(--muted);font-size:11px;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
 }
+.navBtn.active{color:#fff}
+.navBtn b{font-size:21px}
 
-.navBtn span{
-  display:block;
-  font-size:22px;
-  margin-bottom:4px;
+#editorPage{padding:0;overflow:hidden}
+.editor{
+ height:100%;display:flex;flex-direction:column;
 }
-
-.navBtn.active{
-  color:#b45cff;
+.editorTop{
+ height:55px;display:flex;align-items:center;gap:6px;
+ padding:7px;background:var(--panel);border-bottom:1px solid var(--line);
+ flex-shrink:0;
 }
+.editorTitle{
+ flex:1;text-align:center;font-size:14px;font-weight:800;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.canvasArea{
+ flex:1;position:relative;overflow:auto;
+ display:flex;align-items:center;justify-content:center;
+ padding:16px;background:
+ radial-gradient(circle at center,#151a2d 0,#090b17 58%,#060710 100%);
+}
+.canvasWrap{
+ position:relative;box-shadow:0 15px 50px #0008;
+ flex-shrink:0;
+}
+canvas{display:block;background:#fff;touch-action:none}
+.safeBox{
+ position:absolute;inset:5%;border:1px dashed #ffffff55;
+ pointer-events:none;display:none;
+}
+.safeBox.show{display:block}
+.selection{
+ position:absolute;border:2px solid var(--accent2);
+ pointer-events:none;display:none;
+}
+.selection.show{display:block}
+.handle{
+ position:absolute;width:14px;height:14px;background:#fff;
+ border:2px solid var(--accent);border-radius:4px;
+ pointer-events:auto;
+}
+.h-tl{left:-8px;top:-8px}.h-tr{right:-8px;top:-8px}
+.h-bl{left:-8px;bottom:-8px}.h-br{right:-8px;bottom:-8px}
+.rotateHandle{
+ position:absolute;width:16px;height:16px;border-radius:50%;
+ background:var(--accent2);border:2px solid #fff;
+ top:-31px;left:calc(50% - 8px);pointer-events:auto;
+}
+.rotateLine{
+ position:absolute;width:2px;height:18px;background:var(--accent2);
+ top:-19px;left:calc(50% - 1px);
+}
+.snapV,.snapH{
+ position:absolute;background:#00d4ff66;pointer-events:none;display:none;
+}
+.snapV{top:0;bottom:0;width:1px}
+.snapH{left:0;right:0;height:1px}
+.snapV.show,.snapH.show{display:block}
 
+.selectedTools{
+ display:flex;gap:6px;overflow-x:auto;padding:7px;
+ background:#0b0e1b;border-top:1px solid var(--line);
+ scrollbar-width:none;flex-shrink:0;
+}
+.selectedTools::-webkit-scrollbar,.quickTools::-webkit-scrollbar{display:none}
+.quickTools{
+ display:flex;gap:7px;overflow-x:auto;padding:8px;
+ background:var(--panel);border-top:1px solid var(--line);
+ scrollbar-width:none;flex-shrink:0;
+}
+.tool{
+ flex:0 0 auto;border:1px solid var(--line);background:var(--card);
+ color:#fff;border-radius:10px;padding:8px 12px;font-size:12px;font-weight:700;
+}
+.tool b{display:block;font-size:17px;text-align:center}
+.tool span{display:block}
+.panelOverlay{
+ position:absolute;z-index:20;left:8px;right:8px;bottom:120px;
+ max-height:65%;overflow:auto;background:#0b0e1b;
+ border:1px solid var(--line);border-radius:16px;
+ box-shadow:0 20px 60px #000b;display:none;
+}
+.panelOverlay.open{display:block}
+.panelHead{
+ position:sticky;top:0;z-index:2;background:#0b0e1b;
+ display:flex;align-items:center;justify-content:space-between;
+ padding:12px;border-bottom:1px solid var(--line);
+}
+.panelHead strong{font-size:14px}
+.panelBody{padding:12px}
+label{
+ display:block;font-size:11px;color:var(--muted);
+ margin:10px 0 5px;
+}
+input[type=text],input[type=number],select,textarea{
+ width:100%;background:#080b16;color:#fff;border:1px solid var(--line);
+ border-radius:9px;padding:9px;outline:none;
+}
+textarea{min-height:70px;resize:vertical}
+input[type=color]{
+ width:100%;height:42px;border:1px solid var(--line);
+ background:#080b16;border-radius:9px;padding:3px;
+}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{
+ padding:7px 9px;border-radius:9px;background:var(--card);
+ border:1px solid var(--line);font-size:11px;color:#fff;
+}
+.chip.active{border-color:var(--accent);background:#241c50}
+.toggle{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:8px 0;border-bottom:1px solid #ffffff08;
+ font-size:12px;
+}
+.toggle input{accent-color:var(--accent)}
+.fontGrid{
+ display:grid;grid-template-columns:repeat(2,1fr);gap:7px;
+ max-height:310px;overflow:auto;
+}
+.fontItem{
+ border:1px solid var(--line);background:var(--card);padding:10px;
+ border-radius:10px;position:relative;text-align:left;color:#fff;
+}
+.fontItem .tag{
+ position:absolute;right:5px;top:5px;font-size:8px;
+ padding:3px 5px;border-radius:5px;background:var(--accent);
+}
+.fontItem.ad .tag{background:#e5a400;color:#111}
+.fontItem.pro .tag{background:#ff4bd8}
+.stickerGrid{
+ display:grid;grid-template-columns:repeat(6,1fr);gap:6px;
+}
+.stickerBtn{
+ font-size:25px;background:var(--card);border:1px solid var(--line);
+ border-radius:9px;padding:6px;
+}
+.layer{
+ display:flex;align-items:center;gap:7px;background:var(--card);
+ border:1px solid var(--line);border-radius:10px;padding:8px;margin-bottom:6px;
+}
+.layerName{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.layer button{
+ border:0;background:#222741;color:#fff;border-radius:6px;padding:5px 7px;
+}
+.project{
+ display:flex;align-items:center;gap:10px;margin-bottom:9px;
+}
+.projectPreview{
+ width:80px;height:48px;border-radius:8px;background:#111;
+ border:1px solid var(--line);object-fit:cover;
+}
+.projectInfo{flex:1}
+.projectInfo strong{display:block}
+.projectInfo small{color:var(--muted)}
 .modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:200;
-  background:#000b;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
+ position:fixed;inset:0;background:#000b;z-index:100;
+ display:none;align-items:center;justify-content:center;padding:15px;
 }
-
-.modal.show{
-  display:flex;
-}
-
+.modal.open{display:flex}
 .modalBox{
-  width:100%;
-  max-width:430px;
-  background:#0c101e;
-  border:1px solid #323750;
-  border-radius:22px;
-  padding:20px;
-  box-shadow:0 20px 70px #000;
+ width:min(500px,100%);background:var(--panel);
+ border:1px solid var(--line);border-radius:18px;overflow:hidden;
 }
-
-.modalBox h2{
-  margin-top:0;
+.modalHead{padding:14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.modalBody{padding:15px}
+.modalFoot{padding:12px;border-top:1px solid var(--line);display:flex;gap:8px}
+.cropArea{
+ position:relative;background:#05060b;height:320px;
+ display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
-
-.close{
-  float:right;
-  background:none;
-  border:0;
-  color:#9299b0;
-  font-size:25px;
+#cropImg{max-width:90%;max-height:90%;touch-action:none}
+.cropBox{
+ position:absolute;border:2px solid #fff;box-shadow:0 0 0 9999px #0008;
+ width:55%;height:55%;left:22.5%;top:22.5%;touch-action:none;
 }
-
-.formGroup{
-  margin:13px 0;
+.cropBox:after{
+ content:"";position:absolute;inset:33.33%;
+ border:1px dashed #fff8;
 }
-
-.formGroup label{
-  display:block;
-  color:#9ba2ba;
-  font-size:12px;
-  margin-bottom:6px;
+.cropCorner{
+ position:absolute;width:15px;height:15px;background:#fff;border:2px solid var(--accent);
 }
+.cc-tl{left:-8px;top:-8px}.cc-tr{right:-8px;top:-8px}
+.cc-bl{left:-8px;bottom:-8px}.cc-br{right:-8px;bottom:-8px}
 
-.formGroup input,
-.formGroup select{
-  width:100%;
-}
-
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:92px;
-  transform:translateX(-50%) translateY(20px);
-  background:#151a2b;
-  border:1px solid #353b58;
-  padding:11px 17px;
-  border-radius:12px;
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
-  z-index:300;
-  white-space:nowrap;
-  max-width:90%;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
-
-.lock{
-  color:#ffbf4a;
-  font-size:11px;
-  margin-left:5px;
-}
-
-/* IMAGE SIZE CONTROL */
-
-#imageSizeRow{
-  display:none;
-}
-
-#imageSizeValue{
-  width:45px;
-  text-align:right;
-  color:#9ea5bd;
-  font-size:12px;
-}
-
-@media(max-width:700px){
-  .quickGrid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .templateGrid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .projectGrid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .toolbar{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .tool{
-    font-size:11px;
-  }
-
-  .tool span{
-    font-size:18px;
-  }
-}
-
-@media(max-width:450px){
-  .screen{
-    padding:13px;
-  }
-
-  .hero h1{
-    font-size:26px;
-  }
-
-  .templateGrid,
-  .projectGrid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .editorButtons{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .controlRow label{
-    width:72px;
-  }
+@media(min-width:800px){
+ .grid{grid-template-columns:repeat(3,1fr)}
+ .panelOverlay{
+   left:auto;right:12px;bottom:115px;width:370px;max-height:72%;
+ }
+ .quickTools{justify-content:center}
+ .selectedTools{justify-content:center}
 }
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
 <header>
-  <div class="logo">
-    <div class="logoBox">T</div>
-    <span>Thumbnail Maker Pro</span>
-  </div>
-
-  <div class="headerBtns">
-    <button class="iconBtn" onclick="openProfile()">👤</button>
-    <button class="iconBtn" onclick="showPremium()">👑</button>
-  </div>
+ <div class="logo">Thumbnail Maker <span>Pro</span></div>
+ <div class="headerRight">
+  <button class="iconBtn" onclick="openPremium()">⭐</button>
+  <button class="iconBtn" onclick="showPage('profilePage')">👤</button>
+ </div>
 </header>
 
+<div class="main">
+
 <!-- HOME -->
+<section id="homePage" class="page active">
+ <div class="hero">
+  <h1>Create Without Limits</h1>
+  <p>Professional thumbnails, posts, stories and graphics — directly in your browser.</p>
+ </div>
 
-<section id="home" class="screen active">
-
-  <div class="hero">
-    <h1>Create Amazing<br>Thumbnails 🚀</h1>
-    <p>
-      Make professional YouTube thumbnails, Shorts covers,
-      Instagram posts and gaming designs directly from your phone.
-    </p>
-
-    <button class="primary" onclick="newProject()">
-      ✨ Start Creating
-    </button>
-  </div>
-
-  <div class="ad freeAd">
-    ADVERTISEMENT
-  </div>
-
-  <div class="sectionTitle">
-    <h2>Quick Create</h2>
-    <span>Choose size</span>
-  </div>
-
-  <div class="quickGrid">
-    <button class="quick" onclick="quickCreate('youtube')">
-      <span class="emoji">▶️</span>
-      <small>YouTube</small>
-    </button>
-
-    <button class="quick" onclick="quickCreate('shorts')">
-      <span class="emoji">📱</span>
-      <small>Shorts</small>
-    </button>
-
-    <button class="quick" onclick="quickCreate('instagram')">
-      <span class="emoji">📸</span>
-      <small>Instagram</small>
-    </button>
-
-    <button class="quick" onclick="quickCreate('post')">
-      <span class="emoji">🖼️</span>
-      <small>Post</small>
-    </button>
-  </div>
-
-  <div class="sectionTitle">
-    <h2>Ready Templates</h2>
-    <span onclick="showScreen('templates')">View all →</span>
-  </div>
-
-  <div class="templateGrid">
-
-    <div class="template">
-      <div class="templatePreview t1">EPIC<br>GAMEPLAY</div>
-      <div class="templateInfo">
-        <b>Gaming</b>
-        <button class="secondary" onclick="useTemplate(1)">Use</button>
-      </div>
-    </div>
-
-    <div class="template">
-      <div class="templatePreview t2">INSANE<br>CLUTCH!</div>
-      <div class="templateInfo">
-        <b>Clutch</b>
-        <button class="secondary" onclick="useTemplate(2)">Use</button>
-      </div>
-    </div>
-
-    <div class="template">
-      <div class="templatePreview t3">NEW VIDEO<br>🔥</div>
-      <div class="templateInfo">
-        <b>New Video</b>
-        <button class="secondary" onclick="useTemplate(3)">Use</button>
-      </div>
-    </div>
-
-  </div>
-
+ <h3>Quick Create</h3>
+ <div class="grid">
+  <button class="card createCard" onclick="newProject(1280,720,'YouTube Thumbnail')">
+   <span class="emoji">▶️</span><strong>YouTube Thumbnail</strong><small>1280 × 720</small>
+  </button>
+  <button class="card createCard" onclick="newProject(1080,1920,'YouTube Shorts')">
+   <span class="emoji">📱</span><strong>YouTube Shorts</strong><small>1080 × 1920</small>
+  </button>
+  <button class="card createCard" onclick="newProject(1080,1080,'Instagram Post')">
+   <span class="emoji">📸</span><strong>Instagram Post</strong><small>1080 × 1080</small>
+  </button>
+  <button class="card createCard" onclick="newProject(1080,1920,'Instagram Story')">
+   <span class="emoji">🟣</span><strong>Instagram Story</strong><small>1080 × 1920</small>
+  </button>
+  <button class="card createCard" onclick="newProject(1200,630,'Facebook Post')">
+   <span class="emoji">🔵</span><strong>Facebook Post</strong><small>1200 × 630</small>
+  </button>
+  <button class="card createCard" onclick="newProject(1080,1080,'Custom')">
+   <span class="emoji">➕</span><strong>Custom</strong><small>1080 × 1080</small>
+  </button>
+ </div>
 </section>
 
-
-<!-- TEMPLATES -->
-
-<section id="templates" class="screen">
-
-  <div class="sectionTitle">
-    <h2>Templates</h2>
-    <span>Free + Premium</span>
-  </div>
-
-  <div class="templateGrid">
-
-    <div class="template">
-      <div class="templatePreview t1">EPIC<br>GAMEPLAY</div>
-      <div class="templateInfo">
-        <b>Gaming Pro</b>
-        <button class="primary" onclick="useTemplate(1)">Use Template</button>
-      </div>
-    </div>
-
-    <div class="template">
-      <div class="templatePreview t2">INSANE<br>CLUTCH!</div>
-      <div class="templateInfo">
-        <b>Red Action</b>
-        <button class="primary" onclick="useTemplate(2)">Use Template</button>
-      </div>
-    </div>
-
-    <div class="template">
-      <div class="templatePreview t3">NEW VIDEO<br>🔥</div>
-      <div class="templateInfo">
-        <b>Green Gaming</b>
-        <button class="primary" onclick="useTemplate(3)">Use Template</button>
-      </div>
-    </div>
-
-    <div class="template">
-      <div class="templatePreview t4">TOP<br>10</div>
-      <div class="templateInfo">
-        <b>Top 10</b>
-        <button class="primary" onclick="useTemplate(4)">Use Template</button>
-      </div>
-    </div>
-
-    <div class="template">
-      <div class="templatePreview t5">OMG 😱<br>WHAT?</div>
-      <div class="templateInfo">
-        <b>Reaction</b>
-        <button class="primary" onclick="useTemplate(5)">Use Template</button>
-      </div>
-    </div>
-
-    <div class="template">
-      <div class="templatePreview t6">PRO<br>PLAYER</div>
-      <div class="templateInfo">
-        <b>Pro Style</b>
-        <button class="primary" onclick="useTemplate(6)">Use Template</button>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="ad freeAd">
-    ADVERTISEMENT
-  </div>
-
+<!-- CREATE -->
+<section id="createPage" class="page">
+ <div class="hero">
+  <h1>Create</h1>
+  <p>Select your canvas size.</p>
+ </div>
+ <div class="grid">
+  <button class="card createCard" onclick="newProject(1280,720,'YouTube Thumbnail')"><span class="emoji">▶️</span><strong>YouTube</strong></button>
+  <button class="card createCard" onclick="newProject(1080,1920,'Shorts')"><span class="emoji">📱</span><strong>Shorts</strong></button>
+  <button class="card createCard" onclick="newProject(1080,1080,'Instagram')"><span class="emoji">📸</span><strong>Instagram</strong></button>
+  <button class="card createCard" onclick="newProject(1080,1920,'Story')"><span class="emoji">📲</span><strong>Story</strong></button>
+  <button class="card createCard" onclick="newProject(1200,630,'Facebook')"><span class="emoji">🔵</span><strong>Facebook</strong></button>
+ </div>
 </section>
-
-
-<!-- EDITOR -->
-
-<section id="editor" class="screen">
-
-  <div class="editorTop">
-    <h2>Editor</h2>
-    <button class="secondary" onclick="showScreen('home')">✕ Close</button>
-  </div>
-
-  <div class="canvasWrap">
-    <canvas id="canvas" width="1280" height="720"></canvas>
-  </div>
-
-  <div class="toolbar">
-
-    <button class="tool" onclick="addText()">
-      <span>🔤</span>Text
-    </button>
-
-    <button class="tool" onclick="openImagePicker()">
-      <span>🖼️</span>Photo
-    </button>
-
-    <button class="tool" onclick="addSticker()">
-      <span>😀</span>Sticker
-    </button>
-
-    <button class="tool" onclick="changeBackground()">
-      <span>🎨</span>BG
-    </button>
-
-  </div>
-
-  <div class="controlPanel">
-
-    <div class="controlRow">
-      <label>Format</label>
-      <select id="ratioSelect" onchange="changeRatio(this.value)">
-        <option value="youtube">YouTube 16:9</option>
-        <option value="shorts">Shorts 9:16</option>
-        <option value="instagram">Instagram 1:1</option>
-        <option value="post">Post 4:5</option>
-      </select>
-    </div>
-
-    <div class="controlRow">
-      <label>Text</label>
-      <input id="textInput" type="text" placeholder="Select text">
-    </div>
-
-    <div class="controlRow">
-      <label>Size</label>
-      <input id="sizeInput" type="range" min="20" max="180" value="70">
-    </div>
-
-    <div class="controlRow">
-      <label>Color</label>
-      <input id="colorInput" type="color" value="#ffffff">
-    </div>
-
-    <div class="controlRow">
-      <label>Opacity</label>
-      <input id="opacityInput" type="range" min="10" max="100" value="100">
-    </div>
-
-    <!-- NEW IMAGE SIZE CONTROL -->
-
-    <div class="controlRow" id="imageSizeRow">
-      <label>Image Size</label>
-      <input
-        id="imageSizeInput"
-        type="range"
-        min="20"
-        max="300"
-        value="100"
-      >
-      <span id="imageSizeValue">100%</span>
-    </div>
-
-    <div class="editorButtons">
-
-      <button class="secondary" onclick="duplicateSelected()">
-        📋 Duplicate
-      </button>
-
-      <button class="secondary" onclick="deleteSelected()">
-        🗑️ Delete
-      </button>
-
-      <button class="secondary" onclick="saveProject()">
-        💾 Save
-      </button>
-
-      <button class="primary" onclick="downloadImage()">
-        ⬇️ Download
-      </button>
-
-      <button class="secondary" onclick="shareImage()">
-        📤 Share
-      </button>
-
-      <button class="secondary" onclick="clearCanvas()">
-        🔄 Reset
-      </button>
-
-    </div>
-
-  </div>
-
-  <div class="ad freeAd">
-    ADVERTISEMENT
-  </div>
-
-</section>
-
 
 <!-- PROJECTS -->
-
-<section id="projects" class="screen">
-
-  <div class="sectionTitle">
-    <h2>My Projects</h2>
-    <span id="projectCount">0/20</span>
-  </div>
-
-  <div id="projectList"></div>
-
+<section id="projectsPage" class="page">
+ <div class="hero">
+  <h1>Projects</h1>
+  <p>Your projects are stored locally on this device.</p>
+ </div>
+ <div id="projectList"></div>
 </section>
-
 
 <!-- PREMIUM -->
-
-<section id="premium" class="screen">
-
-  <div class="premiumCard">
-
-    <h2>👑 Thumbnail Maker Pro</h2>
-
-    <p>
-      Unlock the premium experience and create without interruptions.
-    </p>
-
-    <div class="featureList">
-
-      <div class="feature">✓ No advertisements</div>
-      <div class="feature">✓ Premium templates</div>
-      <div class="feature">✓ Unlimited designs</div>
-      <div class="feature">✓ Premium stickers</div>
-      <div class="feature">✓ High-quality downloads</div>
-      <div class="feature">✓ More creator tools</div>
-
-    </div>
-
-    <button class="primary" onclick="activatePremium()">
-      👑 Continue to Premium
-    </button>
-
-    <p style="font-size:11px;color:#707890">
-      Premium payment integration can be connected later.
-    </p>
-
-  </div>
-
+<section id="premiumPage" class="page">
+ <div class="hero">
+  <h1>⭐ Premium</h1>
+  <p>Unlock premium fonts and future Pro features.</p>
+ </div>
+ <div class="card">
+  <h2>Thumbnail Maker Pro</h2>
+  <p style="color:var(--muted)">Premium system is ready for a real payment provider.</p>
+  <button class="primary" onclick="demoPremium()">Unlock Premium Demo</button>
+ </div>
 </section>
-
 
 <!-- PROFILE -->
-
-<section id="profile" class="screen">
-
-  <div class="profileCard">
-
-    <div class="profileIcon">👤</div>
-
-    <h2 id="profileName">Creator</h2>
-
-    <p style="color:#858da5">
-      Thumbnail Maker Pro account
-    </p>
-
-    <div class="statGrid">
-
-      <div class="stat">
-        <b id="designStat">0</b>
-        <span>Designs</span>
-      </div>
-
-      <div class="stat">
-        <b id="downloadStat">0</b>
-        <span>Downloads</span>
-      </div>
-
-      <div class="stat">
-        <b id="statusStat">FREE</b>
-        <span>Plan</span>
-      </div>
-
-    </div>
-
-    <br>
-
-    <button class="primary" style="width:100%" onclick="showPremium()">
-      👑 View Premium
-    </button>
-
-  </div>
-
-  <div class="sectionTitle">
-    <h2>Account</h2>
-  </div>
-
-  <button class="secondary" style="width:100%;margin-bottom:10px"
-    onclick="openNameModal()">
-    ✏️ Change Creator Name
-  </button>
-
-  <button class="secondary" style="width:100%"
-    onclick="clearAllData()">
-    🧹 Clear Local Data
-  </button>
-
+<section id="profilePage" class="page">
+ <div class="hero">
+  <h1>👤 Profile</h1>
+  <p>Manage your local app settings.</p>
+ </div>
+ <div class="card">
+  <h3>Storage</h3>
+  <p id="storageInfo" style="color:var(--muted)"></p>
+  <button class="smallBtn" onclick="exportAllProjects()">Backup All Projects</button>
+  <button class="smallBtn" onclick="document.getElementById('restoreFile').click()">Restore Backup</button>
+  <input id="restoreFile" type="file" accept=".json" style="display:none" onchange="restoreBackup(event)">
+ </div>
 </section>
 
+<!-- EDITOR -->
+<section id="editorPage" class="page">
+ <div class="editor">
 
-<!-- BOTTOM NAV -->
+  <div class="editorTop">
+   <button class="iconBtn" onclick="closeEditor()">←</button>
+   <button class="iconBtn" onclick="undo()">↶</button>
+   <button class="iconBtn" onclick="redo()">↷</button>
+   <div class="editorTitle" id="editorTitle">Untitled</div>
+   <button class="iconBtn" onclick="toggleSafe()">⌗</button>
+   <button class="iconBtn" onclick="fitCanvas()">⛶</button>
+   <button class="iconBtn" onclick="saveProject()">💾</button>
+   <button class="iconBtn" onclick="openExport()">⬇</button>
+  </div>
+
+  <div class="canvasArea" id="canvasArea">
+   <div class="canvasWrap" id="canvasWrap">
+    <canvas id="canvas"></canvas>
+    <div class="safeBox" id="safeBox"></div>
+    <div class="snapV" id="snapV"></div>
+    <div class="snapH" id="snapH"></div>
+
+    <div class="selection" id="selection">
+     <div class="rotateLine"></div>
+     <div class="rotateHandle" data-action="rotate"></div>
+     <div class="handle h-tl" data-action="resize-tl"></div>
+     <div class="handle h-tr" data-action="resize-tr"></div>
+     <div class="handle h-bl" data-action="resize-bl"></div>
+     <div class="handle h-br" data-action="resize-br"></div>
+    </div>
+   </div>
+  </div>
+
+  <!-- SELECTED OBJECT TOOLS: ALWAYS VISIBLE -->
+  <div class="selectedTools" id="selectedTools">
+   <button class="tool" onclick="openPanel('editPanel')">✏️ <span>Edit</span></button>
+   <button class="tool" onclick="openPanel('objectPanel')">📐 <span>Position</span></button>
+   <button class="tool" onclick="duplicateSelected()">📋 <span>Copy</span></button>
+   <button class="tool" onclick="bringFront()">⬆️ <span>Front</span></button>
+   <button class="tool" onclick="sendBack()">⬇️ <span>Back</span></button>
+   <button class="tool" onclick="toggleLockSelected()">🔒 <span>Lock</span></button>
+   <button class="tool" onclick="deleteSelected()">🗑️ <span>Delete</span></button>
+  </div>
+
+  <!-- MAIN TOOLS: NEVER HIDDEN -->
+  <div class="quickTools">
+   <button class="tool" onclick="openPanel('textPanel')"><b> T </b><span>Text</span></button>
+   <button class="tool" onclick="openPanel('photoPanel')"><b>🖼️</b><span>Photo</span></button>
+   <button class="tool" onclick="openPanel('stickerPanel')"><b>😀</b><span>Sticker</span></button>
+   <button class="tool" onclick="openPanel('shapePanel')"><b>⬛</b><span>Shape</span></button>
+   <button class="tool" onclick="openPanel('backgroundPanel')"><b>🌄</b><span>Background</span></button>
+   <button class="tool" onclick="openPanel('fontPanel')"><b>F</b><span>Fonts</span></button>
+   <button class="tool" onclick="openPanel('layersPanel')"><b>📚</b><span>Layers</span></button>
+   <button class="tool" onclick="openPanel('objectPanel')"><b>⚙️</b><span>Object</span></button>
+  </div>
+
+  <!-- TEXT PANEL -->
+  <div class="panelOverlay" id="textPanel">
+   <div class="panelHead"><strong>✍️ Text</strong><button class="iconBtn" onclick="closePanels()">×</button></div>
+   <div class="panelBody">
+    <label>Text</label>
+    <textarea id="textValue" placeholder="Type your text..."></textarea>
+    <button class="primary" style="width:100%;margin-top:7px" onclick="addText()">＋ Add Text</button>
+
+    <label>Quick Presets</label>
+    <div class="chips">
+     <button class="chip" onclick="textPreset('GAMING')">Gaming</button>
+     <button class="chip" onclick="textPreset('RANK PUSH')">Rank Push</button>
+     <button class="chip" onclick="textPreset('NEW VIDEO')">New Video</button>
+     <button class="chip" onclick="textPreset('PRO')">Pro</button>
+     <button class="chip" onclick="textPreset('NEON')">Neon</button>
+    </div>
+
+    <label>Font</label>
+    <button class="smallBtn" style="width:100%" onclick="openPanel('fontPanel')">Choose Font</button>
+
+    <div class="row">
+     <div><label>Size</label><input id="textSize" type="range" min="10" max="300" value="80" oninput="updateSelected()"></div>
+     <div><label>Opacity</label><input id="textOpacity" type="range" min="0" max="100" value="100" oninput="updateSelected()"></div>
+    </div>
+
+    <div class="row">
+     <div><label>Color</label><input id="textColor" type="color" value="#ffffff" oninput="updateSelected()"></div>
+     <div><label>Gradient 2</label><input id="textGrad2" type="color" value="#7c5cff" oninput="updateSelected()"></div>
+    </div>
+
+    <div class="row">
+     <div><label>Gradient 3</label><input id="textGrad3" type="color" value="#00d4ff" oninput="updateSelected()"></div>
+     <div><label>Rotation</label><input id="textRotation" type="range" min="-180" max="180" value="0" oninput="updateSelected()"></div>
+    </div>
+
+    <div class="row">
+     <div><label>Letter Spacing</label><input id="letterSpacing" type="range" min="-10" max="40" value="0" oninput="updateSelected()"></div>
+     <div><label>Line Spacing</label><input id="lineSpacing" type="range" min="0.5" max="2.5" step=".05" value="1.1" oninput="updateSelected()"></div>
+    </div>
+
+    <div class="row">
+     <div><label>Outline Width</label><input id="strokeWidth" type="range" min="0" max="30" value="0" oninput="updateSelected()"></div>
+     <div><label>Glow</label><input id="glowWidth" type="range" min="0" max="50" value="0" oninput="updateSelected()"></div>
+    </div>
+
+    <div class="row">
+     <div><label>Shadow Blur</label><input id="shadowBlur" type="range" min="0" max="50" value="0" oninput="updateSelected()"></div>
+     <div><label>Shadow Distance</label><input id="shadowDistance" type="range" min="0" max="30" value="0" oninput="updateSelected()"></div>
+    </div>
+
+    <div class="row">
+     <div><label>Outline Color</label><input id="strokeColor" type="color" value="#000000" oninput="updateSelected()"></div>
+     <div><label>Shadow Color</label><input id="shadowColor" type="color" value="#000000" oninput="updateSelected()"></div>
+    </div>
+
+    <label>Gradient Direction</label>
+    <select id="gradientDirection" onchange="updateSelected()">
+     <option value="lr">Left → Right</option>
+     <option value="tb">Top → Bottom</option>
+     <option value="diag">Diagonal</option>
+    </select>
+
+    <div class="toggle"><span>Bold</span><input id="bold" type="checkbox" onchange="updateSelected()"></div>
+    <div class="toggle"><span>Italic</span><input id="italic" type="checkbox" onchange="updateSelected()"></div>
+    <div class="toggle"><span>Gradient</span><input id="gradientOn" type="checkbox" onchange="updateSelected()"></div>
+    <div class="toggle"><span>Curved Text</span><input id="curveOn" type="checkbox" onchange="updateSelected()"></div>
+
+    <label>Curve</label>
+    <input id="curve" type="range" min="-180" max="180" value="0" oninput="updateSelected()">
+
+    <button class="primary" style="width:100%;margin-top:10px" onclick="directEditText()">Edit Text Directly</button>
+   </div>
+  </div>
+
+  <!-- PHOTO PANEL -->
+  <div class="panelOverlay" id="photoPanel">
+   <div class="panelHead"><strong>🖼️ Photo</strong><button class="iconBtn" onclick="closePanels()">×</button></div>
+   <div class="panelBody">
+    <input type="file" id="photoFile" accept="image/*" style="display:none" onchange="photoSelected(event)">
+    <button class="primary" style="width:100%" onclick="document.getElementById('photoFile').click()">＋ Add / Replace Photo</button>
+
+    <div class="row">
+     <div><label>Size</label><input id="photoSize" type="range" min="10" max="300" value="100" oninput="updateSelected()"></div>
+     <div><label>Rotation</label><input id="photoRotation" type="range" min="-180" max="180" value="0" oninput="updateSelected()"></div>
+    </div>
+
+    <label>Opacity</label>
+    <input id="photoOpacity" type="range" min="0" max="100" value="100" oninput="updateSelected()">
+
+    <div class="row">
+     <div><label>Brightness</label><input id="brightness" type="range" min="50" max="150" value="100" oninput="updateSelected()"></div>
+     <div><label>Contrast</label><input id="contrast" type="range" min="50" max="150" value="100" oninput="updateSelected()"></div>
+    </div>
+
+    <div class="row">
+     <div><label>Saturation</label><input id="saturation" type="range" min="0" max="200" value="100" oninput="updateSelected()"></div>
+     <div><label>Blur</label><input id="blur" type="range" min="0" max="15" value="0" oninput="updateSelected()"></div>
+    </div>
+
+    <div class="row">
+     <div><label>Frame Color</label><input id="frameColor" type="color" value="#ffffff" oninput="updateSelected()"></div>
+     <div><label>Frame Width</label><input id="frameWidth" type="range" min="0" max="30" value="0" oninput="updateSelected()"></div>
+    </div>
+
+    <div class="row">
+     <div><label>Glow</label><input id="photoGlow" type="range" min="0" max="50" value="0" oninput="updateSelected()"></div>
+     <div><label>Shadow</label><input id="photoShadow" type="range" min="0" max="50" value="0" oninput="updateSelected()"></div>
+    </div>
+
+    <label>Photo Shape</label>
+    <div class="chips">
+     <button class="chip" onclick="setPhotoShape('rect')">Rectangle</button>
+     <button class="chip" onclick="setPhotoShape('round')">Rounded</button>
+     <button class="chip" onclick="setPhotoShape('circle')">Circle</button>
+    </div>
+
+    <div class="row">
+     <button class="smallBtn" onclick="flipPhoto()">↔ Flip</button>
+     <button class="primary" onclick="openCrop()">✂️ Crop</button>
+    </div>
+   </div>
+  </div>
+
+  <!-- STICKER PANEL -->
+  <div class="panelOverlay" id="stickerPanel">
+   <div class="panelHead"><strong>😀 Stickers</strong><button class="iconBtn" onclick="closePanels()">×</button></div>
+   <div class="panelBody">
+    <div class="stickerGrid" id="stickerGrid"></div>
+    <label>Sticker Size</label>
+    <input id="stickerSize" type="range" min="20" max="300" value="100" oninput="updateSelected()">
+    <label>Rotation</label>
+    <input id="stickerRotation" type="range" min="-180" max="180" value="0" oninput="updateSelected()">
+    <label>Opacity</label>
+    <input id="stickerOpacity" type="range" min="0" max="100" value="100" oninput="updateSelected()">
+   </div>
+  </div>
+
+  <!-- SHAPE PANEL -->
+  <div class="panelOverlay" id="shapePanel">
+   <div class="panelHead"><strong>⬛ Shapes</strong><button class="iconBtn" onclick="closePanels()">×</button></div>
+   <div class="panelBody">
+    <div class="chips">
+     <button class="chip" onclick="addShape('rect')">Rectangle</button>
+     <button class="chip" onclick="addShape('circle')">Circle</button>
+     <button class="chip" onclick="addShape('triangle')">Triangle</button>
+     <button class="chip" onclick="addShape('star')">Star</button>
+    </div>
+    <label>Color</label><input id="shapeColor" type="color" value="#7c5cff" oninput="updateSelected()">
+    <label>Opacity</label><input id="shapeOpacity" type="range" min="0" max="100" value="100" oninput="updateSelected()">
+    <label>Rotation</label><input id="shapeRotation" type="range" min="-180" max="180" value="0" oninput="updateSelected()">
+    <label>Radius</label><input id="shapeRadius" type="range" min="0" max="100" value="12" oninput="updateSelected()">
+   </div>
+  </div>
+
+  <!-- BACKGROUND -->
+  <div class="panelOverlay" id="backgroundPanel">
+   <div class="panelHead"><strong>🌄 Background</strong><button class="iconBtn" onclick="closePanels()">×</button></div>
+   <div class="panelBody">
+    <label>Background Color</label>
+    <input id="bgColor" type="color" value="#151a30" onchange="setBackground()">
+
+    <div class="row">
+     <div><label>Gradient 1</label><input id="bgGrad1" type="color" value="#151a30"></div>
+     <div><label>Gradient 2</label><input id="bgGrad2" type="color" value="#070914"></div>
+    </div>
+
+    <div class="chips">
+     <button class="chip" onclick="setBackgroundType('solid')">Solid</button>
+     <button class="chip" onclick="setBackgroundType('gradient')">Gradient</button>
+     <button class="chip" onclick="setBackgroundType('transparent')">Transparent</button>
+    </div>
+
+    <label>Preset</label>
+    <div class="chips">
+     <button class="chip" onclick="backgroundPreset('#070914','#7c5cff')">Purple</button>
+     <button class="chip" onclick="backgroundPreset('#001f3f','#00d4ff')">Blue</button>
+     <button class="chip" onclick="backgroundPreset('#250000','#ff4d6d')">Red</button>
+     <button class="chip" onclick="backgroundPreset('#001f13','#22d3a7')">Green</button>
+     <button class="chip" onclick="backgroundPreset('#111','#555')">Dark</button>
+    </div>
+
+    <input type="file" id="bgFile" accept="image/*" style="display:none" onchange="backgroundImage(event)">
+    <button class="primary" style="width:100%;margin-top:8px" onclick="document.getElementById('bgFile').click()">🖼️ Background Photo</button>
+   </div>
+  </div>
+
+  <!-- FONT PANEL -->
+  <div class="panelOverlay" id="fontPanel">
+   <div class="panelHead"><strong>🔤 Fonts</strong><button class="iconBtn" onclick="closePanels()">×</button></div>
+   <div class="panelBody">
+    <input id="fontSearch" type="text" placeholder="Search font..." oninput="renderFonts()">
+
+    <label>Category</label>
+    <div class="chips">
+     <button class="chip active" onclick="fontCategory='all';renderFonts()">All</button>
+     <button class="chip" onclick="fontCategory='free';renderFonts()">Free</button>
+     <button class="chip" onclick="fontCategory='ad';renderFonts()">📺 Ad Unlock</button>
+     <button class="chip" onclick="fontCategory='pro';renderFonts()">⭐ PRO</button>
+     <button class="chip" onclick="fontCategory='gaming';renderFonts()">Gaming</button>
+     <button class="chip" onclick="fontCategory='stylish';renderFonts()">Stylish</button>
+    </div>
+
+    <label>⭐ Favorites</label>
+    <div id="favoriteFonts" class="fontGrid"></div>
+
+    <label>All Fonts</label>
+    <div id="fontGrid" class="fontGrid"></div>
+   </div>
+  </div>
+
+  <!-- LAYERS -->
+  <div class="panelOverlay" id="layersPanel">
+   <div class="panelHead"><strong>📚 Layers</strong><button class="iconBtn" onclick="closePanels()">×</button></div>
+   <div class="panelBody">
+    <button class="smallBtn" onclick="moveSelectedLayer(-1)">⬇ Move Down</button>
+    <button class="smallBtn" onclick="moveSelectedLayer(1)">⬆ Move Up</button>
+    <div id="layerList" style="margin-top:10px"></div>
+   </div>
+  </div>
+
+  <!-- OBJECT -->
+  <div class="panelOverlay" id="objectPanel">
+   <div class="panelHead"><strong>⚙️ Object</strong><button class="iconBtn" onclick="closePanels()">×</button></div>
+   <div class="panelBody">
+    <div class="row">
+     <div><label>X</label><input id="objX" type="number" onchange="updatePosition()"></div>
+     <div><label>Y</label><input id="objY" type="number" onchange="updatePosition()"></div>
+    </div>
+    <div class="row">
+     <div><label>Width</label><input id="objW" type="number" onchange="updatePosition()"></div>
+     <div><label>Height</label><input id="objH" type="number" onchange="updatePosition()"></div>
+    </div>
+    <label>Rotation</label>
+    <input id="objRotation" type="range" min="-180" max="180" value="0" oninput="updatePosition()">
+
+    <label>Opacity</label>
+    <input id="objOpacity" type="range" min="0" max="100" value="100" oninput="updatePosition()">
+
+    <div class="toggle"><span>Aspect Ratio Lock</span><input id="aspectLock" type="checkbox"></div>
+
+    <div class="row">
+     <button class="smallBtn" onclick="alignObject('left')">Left</button>
+     <button class="smallBtn" onclick="alignObject('center')">Center</button>
+    </div>
+    <div class="row">
+     <button class="smallBtn" onclick="alignObject('right')">Right</button>
+     <button class="smallBtn" onclick="alignObject('middle')">Middle</button>
+    </div>
+    <div class="row">
+     <button class="smallBtn" onclick="alignObject('top')">Top</button>
+     <button class="smallBtn" onclick="alignObject('bottom')">Bottom</button>
+    </div>
+
+    <button class="primary" style="width:100%;margin-top:10px" onclick="duplicateSelected()">Duplicate Object</button>
+    <button class="smallBtn" style="width:100%;margin-top:7px" onclick="bringFront()">Bring Front</button>
+    <button class="smallBtn" style="width:100%;margin-top:7px" onclick="sendBack()">Send Back</button>
+   </div>
+  </div>
+
+  <!-- EDIT PANEL -->
+  <div class="panelOverlay" id="editPanel">
+   <div class="panelHead"><strong>✏️ Edit</strong><button class="iconBtn" onclick="closePanels()">×</button></div>
+   <div class="panelBody">
+    <button class="primary" style="width:100%" onclick="directEditText()">Edit Selected Text</button>
+    <button class="smallBtn" style="width:100%;margin-top:7px" onclick="openPanel('textPanel')">Text Controls</button>
+    <button class="smallBtn" style="width:100%;margin-top:7px" onclick="openPanel('photoPanel')">Photo Controls</button>
+   </div>
+  </div>
+
+ </div>
+</section>
+
+</div>
 
 <nav class="bottomNav">
-
-  <button class="navBtn active" data-screen="home"
-    onclick="showScreen('home')">
-    <span>🏠</span>Home
-  </button>
-
-  <button class="navBtn" data-screen="templates"
-    onclick="showScreen('templates')">
-    <span>🎨</span>Templates
-  </button>
-
-  <button class="navBtn" data-screen="editor"
-    onclick="newProject()">
-    <span>➕</span>Create
-  </button>
-
-  <button class="navBtn" data-screen="projects"
-    onclick="showScreen('projects');renderProjects()">
-    <span>📁</span>Projects
-  </button>
-
-  <button class="navBtn" data-screen="premium"
-    onclick="showPremium()">
-    <span>👑</span>Premium
-  </button>
-
+ <button class="navBtn active" onclick="showPage('homePage',this)"><b>⌂</b>Home</button>
+ <button class="navBtn" onclick="showPage('createPage',this)"><b>＋</b>Create</button>
+ <button class="navBtn" onclick="showPage('projectsPage',this);renderProjects()"><b>▣</b>Projects</button>
+ <button class="navBtn" onclick="showPage('premiumPage',this)"><b>★</b>Premium</button>
+ <button class="navBtn" onclick="showPage('profilePage',this);updateStorage()"><b>●</b>Profile</button>
 </nav>
 
 </div>
 
-
-<!-- IMAGE INPUT -->
-
-<input
-  type="file"
-  id="imageInput"
-  accept="image/*"
-  style="display:none"
-  onchange="handleImage(event)"
->
-
-
-<!-- PREMIUM MODAL -->
-
-<div class="modal" id="premiumModal">
-
-  <div class="modalBox">
-
-    <button class="close" onclick="closeModal('premiumModal')">×</button>
-
-    <h2>👑 Go Premium</h2>
-
-    <p style="color:#9ca3b7">
-      Premium mode is ready for payment integration.
-    </p>
-
-    <div class="featureList">
-      <div class="feature">🚫 Remove ads</div>
-      <div class="feature">✨ Premium templates</div>
-      <div class="feature">📐 More formats</div>
-      <div class="feature">⬇️ HD downloads</div>
-    </div>
-
-    <button class="primary" style="width:100%"
-      onclick="activatePremium();closeModal('premiumModal')">
-      Activate Premium Demo
-    </button>
-
+<!-- TEXT EDIT MODAL -->
+<div class="modal" id="textModal">
+ <div class="modalBox">
+  <div class="modalHead"><strong>Edit Text</strong><button class="iconBtn" onclick="closeTextModal()">×</button></div>
+  <div class="modalBody">
+   <textarea id="directText"></textarea>
   </div>
-
+  <div class="modalFoot">
+   <button class="primary" style="flex:1" onclick="applyDirectText()">Apply</button>
+   <button class="smallBtn" onclick="closeTextModal()">Cancel</button>
+  </div>
+ </div>
 </div>
 
-
-<!-- NAME MODAL -->
-
-<div class="modal" id="nameModal">
-
-  <div class="modalBox">
-
-    <button class="close" onclick="closeModal('nameModal')">×</button>
-
-    <h2>Creator Name</h2>
-
-    <div class="formGroup">
-      <label>Name</label>
-      <input id="nameInput" type="text" placeholder="Enter your name">
-    </div>
-
-    <button class="primary" style="width:100%"
-      onclick="saveName()">
-      Save Name
-    </button>
-
+<!-- EXPORT MODAL -->
+<div class="modal" id="exportModal">
+ <div class="modalBox">
+  <div class="modalHead"><strong>Export</strong><button class="iconBtn" onclick="closeExport()">×</button></div>
+  <div class="modalBody">
+   <label>Format</label>
+   <select id="exportFormat">
+    <option value="png">PNG</option>
+    <option value="jpeg">JPG</option>
+    <option value="webp">WebP</option>
+   </select>
+   <label>Quality</label>
+   <select id="exportQuality">
+    <option value="1">Standard</option>
+    <option value="2">High</option>
+    <option value="3">Ultra</option>
+   </select>
+   <p style="font-size:11px;color:var(--muted)">Ultra export uses a larger canvas scale and may use more device memory.</p>
   </div>
-
+  <div class="modalFoot">
+   <button class="primary" style="flex:1" onclick="exportCanvas()">Export</button>
+   <button class="smallBtn" onclick="closeExport()">Cancel</button>
+  </div>
+ </div>
 </div>
 
+<!-- AD MODAL -->
+<div class="modal" id="adModal">
+ <div class="modalBox">
+  <div class="modalHead"><strong>📺 Rewarded Ad</strong></div>
+  <div class="modalBody" style="text-align:center">
+   <div style="font-size:45px">📺</div>
+   <h2 id="adTimer">5</h2>
+   <p style="color:var(--muted)">Demo rewarded-ad flow. Connect your real supported ad SDK here before production.</p>
+  </div>
+ </div>
+</div>
 
-<div class="toast" id="toast"></div>
-
+<!-- CROP MODAL -->
+<div class="modal" id="cropModal">
+ <div class="modalBox">
+  <div class="modalHead"><strong>✂️ Crop Photo</strong><button class="iconBtn" onclick="closeCrop()">×</button></div>
+  <div class="cropArea" id="cropArea">
+   <img id="cropImg">
+   <div class="cropBox" id="cropBox">
+    <div class="cropCorner cc-tl"></div>
+    <div class="cropCorner cc-tr"></div>
+    <div class="cropCorner cc-bl"></div>
+    <div class="cropCorner cc-br"></div>
+   </div>
+  </div>
+  <div class="modalBody">
+   <label>Crop Zoom</label>
+   <input id="cropZoom" type="range" min="0.5" max="3" step=".01" value="1">
+  </div>
+  <div class="modalFoot">
+   <button class="primary" style="flex:1" onclick="applyCrop()">Apply Crop</button>
+   <button class="smallBtn" onclick="closeCrop()">Cancel</button>
+  </div>
+ </div>
+</div>
 
 <script>
+/* =========================================================
+   THUMBNAIL MAKER PRO
+   Standalone PixelLab-style editor
+========================================================= */
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+const canvasWrap=document.getElementById("canvasWrap");
+const canvasArea=document.getElementById("canvasArea");
 
-let objects = [];
-let selectedIndex = -1;
-let currentRatio = "youtube";
-let bgIndex = 0;
-let premium = localStorage.getItem("tmpremium") === "true";
-
-let appData = JSON.parse(
-  localStorage.getItem("tmdata") ||
-  '{"downloads":0,"designs":0,"name":"Creator"}'
-);
-
-const backgrounds = [
-  "#151827",
-  "#101936",
-  "#24122f",
-  "#102923",
-  "#30151b",
-  "#171717",
-  "#0c2031"
-];
-
-const ratioData = {
-  youtube:{
-    w:1280,
-    h:720
-  },
-  shorts:{
-    w:720,
-    h:1280
-  },
-  instagram:{
-    w:1080,
-    h:1080
-  },
-  post:{
-    w:1080,
-    h:1350
-  }
+let state={
+ width:1280,height:720,
+ title:"Untitled",
+ objects:[],
+ background:{type:"solid",color:"#151a30",g1:"#151a30",g2:"#070914",image:null},
+ selected:null,
+ zoom:1
 };
 
+let history=[];
+let future=[];
+let interaction=null;
+let fontCategory="all";
+let favoriteFonts=JSON.parse(localStorage.getItem("tmp_favorites")||"[]");
+let recentFonts=JSON.parse(localStorage.getItem("tmp_recentFonts")||"[]");
+let unlockedFonts=JSON.parse(localStorage.getItem("tmp_adFonts")||"[]");
+let premium=localStorage.getItem("tmp_premium")==="1";
 
-/* SCREEN */
+const FREE_FONTS=[
+ ["Poppins","free","normal"],
+ ["Roboto","free","normal"],
+ ["Montserrat","free","normal"],
+ ["Oswald","free","normal"],
+ ["Exo 2","free","gaming"],
+ ["Inter","free","normal"],
+ ["Ubuntu","free","normal"]
+];
 
-function showScreen(id){
+const AD_FONTS=[
+ ["Anton","ad","gaming"],
+ ["Bebas Neue","ad","gaming"],
+ ["Teko","ad","gaming"],
+ ["Squada One","ad","gaming"],
+ ["Righteous","ad","stylish"],
+ ["Russo One","ad","gaming"],
+ ["Fjalla One","ad","gaming"],
+ ["Orbitron","ad","gaming"],
+ ["Archivo Black","ad","gaming"],
+ ["Luckiest Guy","ad","stylish"],
+ ["Black Ops One","ad","gaming"],
+ ["Bungee","ad","gaming"],
+ ["Press Start 2P","ad","gaming"],
+ ["Lobster","ad","stylish"],
+ ["Permanent Marker","ad","stylish"],
+ ["Playfair Display","ad","stylish"],
+ ["Pacifico","ad","stylish"],
+ ["Alfa Slab One","ad","gaming"]
+];
 
-  document.querySelectorAll(".screen")
-    .forEach(x=>x.classList.remove("active"));
+const PRO_FONTS=[
+ ["Montserrat Black","pro","gaming"],
+ ["Impact Pro","pro","gaming"],
+ ["Gamer Pro","pro","gaming"],
+ ["Neon Pro","pro","gaming"],
+ ["Cyber Pro","pro","gaming"],
+ ["Esports Pro","pro","gaming"],
+ ["Fire Pro","pro","gaming"],
+ ["Royal Pro","pro","stylish"],
+ ["Street Pro","pro","gaming"],
+ ["Comic Pro","pro","stylish"],
+ ["Luxury Pro","pro","stylish"],
+ ["Titan Pro","pro","gaming"],
+ ["Champion Pro","pro","gaming"],
+ ["Ultra Gaming Pro","pro","gaming"],
+ ["Creator Pro","pro","stylish"]
+];
 
-  const screen = document.getElementById(id);
+const STICKERS=[
+"😀","😂","🤣","😎","🤩","🔥","💥","⚡","💯","❤️","💙","💜",
+"⭐","🌟","✨","🎯","🏆","👑","💎","🚀","🎮","🕹️","🎉","😱",
+"😈","🤯","💀","☠️","👍","👎","❤️‍🔥","🔴","🟢","🔵","🟣","🟡",
+"❗","❓","✔️","✖️","➤","★","☄️","🌈","💰","🎁","📱","▶️"
+];
 
-  if(screen) screen.classList.add("active");
-
-  document.querySelectorAll(".navBtn")
-    .forEach(btn=>{
-      btn.classList.toggle(
-        "active",
-        btn.dataset.screen === id
-      );
-    });
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-  if(id === "profile") updateProfile();
-
+function uid(){
+ return Date.now().toString(36)+Math.random().toString(36).slice(2);
 }
 
-
-/* TOAST */
-
-function toast(message){
-
-  const t = document.getElementById("toast");
-
-  t.textContent = message;
-  t.classList.add("show");
-
-  clearTimeout(window.toastTimer);
-
-  window.toastTimer = setTimeout(()=>{
-    t.classList.remove("show");
-  },2200);
-
+function clone(o){
+ return JSON.parse(JSON.stringify(o));
 }
 
-
-/* MODAL */
-
-function closeModal(id){
-  document.getElementById(id).classList.remove("show");
+function pushHistory(){
+ history.push(clone(state));
+ if(history.length>40) history.shift();
+ future=[];
 }
 
-function openProfile(){
-  showScreen("profile");
+function undo(){
+ if(!history.length)return;
+ future.push(clone(state));
+ state=history.pop();
+ refresh();
 }
 
-function showPremium(){
-  document.getElementById("premiumModal").classList.add("show");
+function redo(){
+ if(!future.length)return;
+ history.push(clone(state));
+ state=future.pop();
+ refresh();
 }
 
-
-/* PROJECT */
-
-function newProject(){
-
-  currentRatio = "youtube";
-
-  document.getElementById("ratioSelect").value =
-    currentRatio;
-
-  setCanvasSize();
-
-  objects = [];
-  selectedIndex = -1;
-  bgIndex = 0;
-
-  draw();
-
-  syncControls();
-
-  showScreen("editor");
-
-  toast("New project created");
-
+function showPage(id,btn){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".navBtn").forEach(b=>b.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ closePanels();
 }
 
-
-function quickCreate(type){
-
-  currentRatio = type;
-
-  document.getElementById("ratioSelect").value = type;
-
-  setCanvasSize();
-
-  objects = [];
-
-  selectedIndex = -1;
-
-  bgIndex = 0;
-
-  draw();
-
-  syncControls();
-
-  showScreen("editor");
-
-  toast(type.toUpperCase()+" project created");
-
+function newProject(w,h,title){
+ state={
+  width:w,height:h,title:title,
+  objects:[],
+  background:{type:"solid",color:"#151a30",g1:"#151a30",g2:"#070914",image:null},
+  selected:null,zoom:1
+ };
+ history=[];future=[];
+ document.getElementById("editorTitle").textContent=title;
+ showPage("editorPage");
+ fitCanvas();
+ draw();
 }
 
-
-/* CANVAS */
-
-function setCanvasSize(){
-
-  const r = ratioData[currentRatio];
-
-  canvas.width = r.w;
-  canvas.height = r.h;
-
-  canvas.style.aspectRatio =
-    r.w + "/" + r.h;
-
+function closeEditor(){
+ saveDraft();
+ showPage("homePage");
 }
 
+function openPanel(id){
+ closePanels();
+ document.getElementById(id).classList.add("open");
+ if(id==="layersPanel")renderLayers();
+ if(id==="fontPanel")renderFonts();
+ if(id==="objectPanel")loadObjectControls();
+ if(id==="textPanel")loadTextControls();
+ if(id==="photoPanel")loadPhotoControls();
+ if(id==="stickerPanel")loadStickerControls();
+ if(id==="shapePanel")loadShapeControls();
+}
+
+function closePanels(){
+ document.querySelectorAll(".panelOverlay").forEach(p=>p.classList.remove("open"));
+}
+
+function refresh(){
+ document.getElementById("editorTitle").textContent=state.title;
+ fitCanvas();
+ draw();
+ updateSelectionUI();
+ renderLayers();
+}
+
+function fitCanvas(){
+ if(!canvas.width||!canvas.height)return;
+ const maxW=Math.max(250,canvasArea.clientWidth-35);
+ const maxH=Math.max(220,canvasArea.clientHeight-35);
+ let scale=Math.min(maxW/state.width,maxH/state.height);
+ scale=Math.max(.12,Math.min(1,scale));
+ state.zoom=scale;
+ canvas.style.width=(state.width*scale)+"px";
+ canvas.style.height=(state.height*scale)+"px";
+ canvasWrap.style.width=(state.width*scale)+"px";
+ canvasWrap.style.height=(state.height*scale)+"px";
+ updateSelectionUI();
+}
+
+window.addEventListener("resize",()=>fitCanvas());
 
 function draw(){
+ ctx.clearRect(0,0,state.width,state.height);
+ drawBackground();
 
-  ctx.clearRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
-
-  ctx.fillStyle = backgrounds[bgIndex];
-
-  ctx.fillRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
-
-  objects.forEach((obj,index)=>{
-
-    ctx.save();
-
-    ctx.globalAlpha =
-      obj.opacity === undefined
-      ? 1
-      : obj.opacity;
-
-    if(obj.type === "text"){
-
-      ctx.font =
-        "900 " + obj.size + "px Arial";
-
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-
-      ctx.lineWidth = Math.max(3,obj.size/15);
-      ctx.strokeStyle = "#000";
-
-      ctx.strokeText(
-        obj.text,
-        obj.x,
-        obj.y
-      );
-
-      ctx.fillStyle = obj.color;
-
-      ctx.fillText(
-        obj.text,
-        obj.x,
-        obj.y
-      );
-
-    }
-
-    if(obj.type === "sticker"){
-
-      ctx.font =
-        obj.size + "px Arial";
-
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-
-      ctx.fillText(
-        obj.text,
-        obj.x,
-        obj.y
-      );
-
-    }
-
-    if(obj.type === "image" && obj.img){
-
-      ctx.drawImage(
-        obj.img,
-        obj.x - obj.w/2,
-        obj.y - obj.h/2,
-        obj.w,
-        obj.h
-      );
-
-    }
-
-    ctx.restore();
-
-    if(index === selectedIndex){
-
-      ctx.save();
-
-      ctx.strokeStyle = "#b65cff";
-      ctx.lineWidth = 4;
-      ctx.setLineDash([10,7]);
-
-      let box;
-
-      if(obj.type === "text"){
-
-        ctx.font =
-          "900 " + obj.size + "px Arial";
-
-        const width =
-          ctx.measureText(obj.text).width;
-
-        box = {
-          x:obj.x-width/2-12,
-          y:obj.y-obj.size/2-12,
-          w:width+24,
-          h:obj.size+24
-        };
-
-      }else{
-
-        box = {
-          x:obj.x-(obj.w||obj.size)/2-10,
-          y:obj.y-(obj.h||obj.size)/2-10,
-          w:(obj.w||obj.size)+20,
-          h:(obj.h||obj.size)+20
-        };
-
-      }
-
-      ctx.strokeRect(
-        box.x,
-        box.y,
-        box.w,
-        box.h
-      );
-
-      ctx.restore();
-
-    }
-
-  });
-
+ for(const o of state.objects){
+  if(o.visible===false)continue;
+  drawObject(o);
+ }
+ updateSelectionUI();
 }
 
+function drawBackground(){
+ if(state.background.type==="transparent"){
+  ctx.clearRect(0,0,state.width,state.height);
+  return;
+ }
+ if(state.background.type==="image" && state.background.image){
+  const im=new Image();
+  im.onload=()=>{
+   ctx.drawImage(im,0,0,state.width,state.height);
+   state.objects.forEach(o=>{if(o.visible!==false)drawObject(o)});
+   updateSelectionUI();
+  };
+  im.src=state.background.image;
+  return;
+ }
+ if(state.background.type==="gradient"){
+  const g=ctx.createLinearGradient(0,0,state.width,state.height);
+  g.addColorStop(0,state.background.g1);
+  g.addColorStop(1,state.background.g2);
+  ctx.fillStyle=g;
+ }else{
+  ctx.fillStyle=state.background.color||"#151a30";
+ }
+ ctx.fillRect(0,0,state.width,state.height);
+}
 
-/* TEXT */
+function roundedRectPath(c,x,y,w,h,r){
+ r=Math.min(r,Math.abs(w)/2,Math.abs(h)/2);
+ c.beginPath();
+ c.moveTo(x+r,y);
+ c.arcTo(x+w,y,x+w,y+h,r);
+ c.arcTo(x+w,y+h,x,y+h,r);
+ c.arcTo(x,y+h,x,y,r);
+ c.arcTo(x,y,x+w,y,r);
+ c.closePath();
+}
+
+function drawObject(o){
+ ctx.save();
+ ctx.translate(o.x+o.w/2,o.y+o.h/2);
+ ctx.rotate((o.rotation||0)*Math.PI/180);
+ ctx.globalAlpha=(o.opacity??100)/100;
+
+ if(o.type==="text")drawText(o);
+ if(o.type==="photo")drawPhoto(o);
+ if(o.type==="sticker")drawSticker(o);
+ if(o.type==="shape")drawShape(o);
+
+ ctx.restore();
+}
+
+function getFont(o){
+ let weight=o.bold?"800":"700";
+ let style=o.italic?"italic":"normal";
+ return `${style} ${weight} ${o.size||70}px "${o.font||"Poppins"}"`;
+}
+
+function drawText(o){
+ const text=o.text||"Text";
+ ctx.font=getFont(o);
+ ctx.textAlign="center";
+ ctx.textBaseline="middle";
+ ctx.lineJoin="round";
+
+ let lines=text.split("\n");
+ let lineH=(o.size||70)*(o.lineSpacing||1.1);
+
+ if(o.curveOn && Math.abs(o.curve||0)>2){
+  drawCurvedText(o);
+  return;
+ }
+
+ let maxW=o.w||1000;
+ let finalLines=[];
+
+ for(const line of lines){
+  if(ctx.measureText(line).width<=maxW){
+   finalLines.push(line);
+  }else{
+   let words=line.split(" ");
+   let current="";
+   for(const word of words){
+    let test=current?current+" "+word:word;
+    if(ctx.measureText(test).width>maxW && current){
+     finalLines.push(current);current=word;
+    }else current=test;
+   }
+   if(current)finalLines.push(current);
+  }
+ }
+
+ const total=finalLines.length*lineH;
+ const start=-total/2+lineH/2;
+
+ if(o.glow){
+  ctx.shadowColor=o.glowColor||"#7c5cff";
+  ctx.shadowBlur=o.glow||0;
+ }
+ if(o.shadowBlur){
+  ctx.shadowColor=o.shadowColor||"#000";
+  ctx.shadowBlur=o.shadowBlur;
+  ctx.shadowOffsetX=o.shadowDistance||0;
+  ctx.shadowOffsetY=o.shadowDistance||0;
+ }
+
+ for(let i=0;i<finalLines.length;i++){
+  let y=start+i*lineH;
+  let fill=o.color||"#fff";
+
+  if(o.gradientOn){
+   let g;
+   if(o.gradientDirection==="tb"){
+    g=ctx.createLinearGradient(0,-o.h/2,0,o.h/2);
+   }else if(o.gradientDirection==="diag"){
+    g=ctx.createLinearGradient(-o.w/2,-o.h/2,o.w/2,o.h/2);
+   }else{
+    g=ctx.createLinearGradient(-o.w/2,0,o.w/2,0);
+   }
+   g.addColorStop(0,o.color||"#fff");
+   g.addColorStop(.5,o.grad2||"#7c5cff");
+   g.addColorStop(1,o.grad3||"#00d4ff");
+   fill=g;
+  }
+
+  if(o.strokeWidth>0){
+   ctx.strokeStyle=o.strokeColor||"#000";
+   ctx.lineWidth=o.strokeWidth;
+   ctx.strokeText(finalLines[i],0,y);
+  }
+
+  ctx.fillStyle=fill;
+  ctx.fillText(finalLines[i],0,y);
+ }
+}
+
+function drawCurvedText(o){
+ const text=o.text||"Text";
+ ctx.font=getFont(o);
+ const chars=[...text];
+ const radius=Math.max(60,Math.min(o.w,o.h)*.8);
+ const curve=(o.curve||40)*Math.PI/180;
+ const totalAngle=Math.min(Math.PI*1.8,Math.abs(curve)||1.2);
+ const dir=curve>=0?1:-1;
+ const step=totalAngle/Math.max(1,chars.length-1);
+ const start=-totalAngle/2;
+
+ ctx.textAlign="center";
+ ctx.textBaseline="middle";
+
+ chars.forEach((ch,i)=>{
+  const a=start+i*step;
+  ctx.save();
+  const x=Math.sin(a)*radius;
+  const y=-Math.cos(a)*radius;
+  ctx.translate(x,y);
+  ctx.rotate(dir*a);
+  ctx.fillStyle=o.color||"#fff";
+  ctx.fillText(ch,0,0);
+  ctx.restore();
+ });
+}
+
+function drawPhoto(o){
+ if(!o.src){
+  ctx.fillStyle="#222741";
+  ctx.fillRect(-o.w/2,-o.h/2,o.w,o.h);
+  ctx.fillStyle="#9da5c0";
+  ctx.font="30px Poppins";
+  ctx.fillText("PHOTO",-0,-5);
+  return;
+ }
+
+ const im=new Image();
+ im.onload=()=>{
+  ctx.save();
+
+  if(o.shadow){
+   ctx.shadowColor="#000";
+   ctx.shadowBlur=o.shadow;
+   ctx.shadowOffsetX=8;
+   ctx.shadowOffsetY=8;
+  }
+
+  if(o.glow){
+   ctx.shadowColor=o.glowColor||"#7c5cff";
+   ctx.shadowBlur=o.glow;
+  }
+
+  if(o.shape==="circle"){
+   ctx.beginPath();
+   ctx.arc(0,0,Math.min(o.w,o.h)/2,0,Math.PI*2);
+   ctx.clip();
+  }else if(o.shape==="round"){
+   roundedRectPath(ctx,-o.w/2,-o.h/2,o.w,o.h,o.radius||30);
+   ctx.clip();
+  }
+
+  ctx.filter=
+   `brightness(${o.brightness||100}%) `+
+   `contrast(${o.contrast||100}%) `+
+   `saturate(${o.saturation||100}%) `+
+   `blur(${o.blur||0}px)`;
+
+  let sx=o.crop?.x||0;
+  let sy=o.crop?.y||0;
+  let sw=o.crop?.w||im.naturalWidth;
+  let sh=o.crop?.h||im.naturalHeight;
+
+  if(o.flip)ctx.scale(-1,1);
+
+  ctx.drawImage(im,sx,sy,sw,sh,-o.w/2,-o.h/2,o.w,o.h);
+  ctx.restore();
+
+  if(o.frameWidth>0){
+   ctx.save();
+   ctx.filter="none";
+   ctx.shadowColor="transparent";
+   ctx.strokeStyle=o.frameColor||"#fff";
+   ctx.lineWidth=o.frameWidth;
+
+   if(o.shape==="circle"){
+    ctx.beginPath();
+    ctx.arc(0,0,Math.min(o.w,o.h)/2-o.frameWidth/2,0,Math.PI*2);
+    ctx.stroke();
+   }else{
+    roundedRectPath(ctx,-o.w/2,-o.h/2,o.w,o.h,o.shape==="round"?(o.radius||30):0);
+    ctx.stroke();
+   }
+   ctx.restore();
+  }
+ }
+ im.src=o.src;
+}
+
+function drawSticker(o){
+ ctx.font=`${o.size||100}px Arial`;
+ ctx.textAlign="center";
+ ctx.textBaseline="middle";
+ ctx.fillText(o.sticker||"😀",0,0);
+}
+
+function drawShape(o){
+ ctx.fillStyle=o.color||"#7c5cff";
+ ctx.beginPath();
+
+ if(o.shape==="circle"){
+  ctx.arc(0,0,Math.min(o.w,o.h)/2,0,Math.PI*2);
+ }else if(o.shape==="triangle"){
+  ctx.moveTo(0,-o.h/2);
+  ctx.lineTo(o.w/2,o.h/2);
+  ctx.lineTo(-o.w/2,o.h/2);
+  ctx.closePath();
+ }else if(o.shape==="star"){
+  for(let i=0;i<10;i++){
+   const r=i%2===0?Math.min(o.w,o.h)/2:Math.min(o.w,o.h)/4;
+   const a=-Math.PI/2+i*Math.PI/5;
+   const x=Math.cos(a)*r,y=Math.sin(a)*r;
+   if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+ }else{
+  roundedRectPath(ctx,-o.w/2,-o.h/2,o.w,o.h,o.radius||0);
+ }
+ ctx.fill();
+}
+
+/* ---------- selection ---------- */
+
+function selectedObject(){
+ return state.objects.find(o=>o.id===state.selected);
+}
+
+function getBounds(o){
+ return {
+  x:o.x,y:o.y,w:o.w,h:o.h
+ };
+}
+
+function updateSelectionUI(){
+ const sel=document.getElementById("selection");
+ const o=selectedObject();
+
+ if(!o){
+  sel.classList.remove("show");
+  return;
+ }
+
+ sel.classList.add("show");
+
+ const z=state.zoom;
+ sel.style.left=(o.x*z)+"px";
+ sel.style.top=(o.y*z)+"px";
+ sel.style.width=(o.w*z)+"px";
+ sel.style.height=(o.h*z)+"px";
+
+ sel.style.transform=`rotate(${o.rotation||0}deg)`;
+ sel.style.transformOrigin="center";
+
+ document.getElementById("snapV").style.left=(state.width*z/2)+"px";
+ document.getElementById("snapH").style.top=(state.height*z/2)+"px";
+}
+
+function hitTest(px,py){
+ for(let i=state.objects.length-1;i>=0;i--){
+  const o=state.objects[i];
+  if(o.visible===false)continue;
+
+  const cx=o.x+o.w/2;
+  const cy=o.y+o.h/2;
+  const a=-(o.rotation||0)*Math.PI/180;
+  const dx=px-cx,dy=py-cy;
+  const x=dx*Math.cos(a)-dy*Math.sin(a);
+  const y=dx*Math.sin(a)+dy*Math.cos(a);
+
+  if(Math.abs(x)<=o.w/2 && Math.abs(y)<=o.h/2)return o;
+ }
+ return null;
+}
+
+canvas.addEventListener("pointerdown",canvasPointerDown);
+canvas.addEventListener("pointermove",canvasPointerMove);
+canvas.addEventListener("pointerup",canvasPointerUp);
+canvas.addEventListener("pointercancel",canvasPointerUp);
+
+function pointerToCanvas(e){
+ const r=canvas.getBoundingClientRect();
+ return {
+  x:(e.clientX-r.left)*(state.width/r.width),
+  y:(e.clientY-r.top)*(state.height/r.height)
+ };
+}
+
+function canvasPointerDown(e){
+ e.preventDefault();
+
+ const p=pointerToCanvas(e);
+ const o=hitTest(p.x,p.y);
+
+ if(!o){
+  state.selected=null;
+  updateSelectionUI();
+  return;
+ }
+
+ state.selected=o.id;
+
+ if(o.locked){
+  updateSelectionUI();
+  return;
+ }
+
+ pushHistory();
+
+ interaction={
+  type:"move",
+  id:o.id,
+  startX:p.x,startY:p.y,
+  ox:o.x,oy:o.y
+ };
+
+ canvas.setPointerCapture(e.pointerId);
+ updateSelectionUI();
+ loadControlsForSelected();
+}
+
+function canvasPointerMove(e){
+ if(!interaction)return;
+
+ const o=state.objects.find(x=>x.id===interaction.id);
+ if(!o)return;
+
+ const p=pointerToCanvas(e);
+
+ if(interaction.type==="move"){
+  o.x=interaction.ox+(p.x-interaction.startX);
+  o.y=interaction.oy+(p.y-interaction.startY);
+  snapObject(o);
+ }
+
+ draw();
+}
+
+function canvasPointerUp(){
+ if(interaction){
+  interaction=null;
+  saveDraft();
+ }
+}
+
+/* selection handles */
+document.querySelectorAll(".handle,.rotateHandle").forEach(el=>{
+ el.addEventListener("pointerdown",e=>{
+  e.stopPropagation();
+  const o=selectedObject();
+  if(!o||o.locked)return;
+
+  const action=el.dataset.action;
+  const r=canvas.getBoundingClientRect();
+  const p={
+   x:(e.clientX-r.left)*(state.width/r.width),
+   y:(e.clientY-r.top)*(state.height/r.height)
+  };
+
+  pushHistory();
+
+  interaction={
+   type:action,
+   id:o.id,
+   startX:p.x,startY:p.y,
+   ox:o.x,oy:o.y,ow:o.w,oh:o.h,
+   or:o.rotation||0,
+   cx:o.x+o.w/2,cy:o.y+o.h/2
+  };
+
+  el.setPointerCapture(e.pointerId);
+ });
+});
+
+document.addEventListener("pointermove",e=>{
+ if(!interaction||!interaction.type.startsWith("resize")&&interaction.type!=="rotate")return;
+
+ const o=state.objects.find(x=>x.id===interaction.id);
+ if(!o)return;
+
+ const r=canvas.getBoundingClientRect();
+ const p={
+  x:(e.clientX-r.left)*(state.width/r.width),
+  y:(e.clientY-r.top)*(state.height/r.height)
+ };
+
+ if(interaction.type==="rotate"){
+  const a=Math.atan2(p.y-interaction.cy,p.x-interaction.cx)*180/Math.PI+90;
+  o.rotation=snapRotation(a);
+ }else{
+  resizeObject(o,p,interaction);
+ }
+
+ draw();
+});
+
+document.addEventListener("pointerup",()=>{
+ if(interaction && (interaction.type==="rotate"||interaction.type.startsWith("resize"))){
+  interaction=null;
+  saveDraft();
+ }
+});
+
+function resizeObject(o,p,i){
+ let dx=p.x-i.startX;
+ let dy=p.y-i.startY;
+ let ratio=i.ow/i.oh;
+
+ if(i.type==="resize-br"){
+  o.w=Math.max(30,i.ow+dx);
+  o.h=document.getElementById("aspectLock").checked?Math.max(30,o.w/ratio):Math.max(30,i.oh+dy);
+ }
+ if(i.type==="resize-bl"){
+  const nw=Math.max(30,i.ow-dx);
+  o.x=i.ox+(i.ow-nw);
+  o.w=nw;
+  o.h=document.getElementById("aspectLock").checked?Math.max(30,o.w/ratio):Math.max(30,i.oh+dy);
+ }
+ if(i.type==="resize-tr"){
+  const nh=Math.max(30,i.oh+dy*-1);
+  o.y=i.oy+(i.oh-nh);
+  o.h=nh;
+  o.w=document.getElementById("aspectLock").checked?Math.max(30,o.h*ratio):Math.max(30,i.ow+dx);
+ }
+ if(i.type==="resize-tl"){
+  const nw=Math.max(30,i.ow-dx);
+  const nh=document.getElementById("aspectLock").checked?Math.max(30,nw/ratio):Math.max(30,i.oh-dy);
+  o.x=i.ox+(i.ow-nw);
+  o.y=i.oy+(i.oh-nh);
+  o.w=nw;o.h=nh;
+ }
+}
+
+function snapRotation(a){
+ let n=((a+180)%360+360)%360-180;
+ const snaps=[-180,-135,-90,-45,0,45,90,135,180];
+ for(const s of snaps)if(Math.abs(n-s)<5)return s;
+ return Math.round(n);
+}
+
+function snapObject(o){
+ const tolerance=18;
+ const cx=o.x+o.w/2;
+ const cy=o.y+o.h/2;
+
+ let v=false,h=false;
+
+ if(Math.abs(cx-state.width/2)<tolerance){
+  o.x=state.width/2-o.w/2;v=true;
+ }
+ if(Math.abs(cy-state.height/2)<tolerance){
+  o.y=state.height/2-o.h/2;h=true;
+ }
+ if(Math.abs(o.x)<tolerance)o.x=0;
+ if(Math.abs(o.y)<tolerance)o.y=0;
+ if(Math.abs((o.x+o.w)-state.width)<tolerance)o.x=state.width-o.w;
+ if(Math.abs((o.y+o.h)-state.height)<tolerance)o.y=state.height-o.h;
+
+ document.getElementById("snapV").classList.toggle("show",v);
+ document.getElementById("snapH").classList.toggle("show",h);
+}
+
+/* ---------- add objects ---------- */
 
 function addText(){
+ const text=document.getElementById("textValue").value.trim()||"YOUR TEXT";
+ pushHistory();
 
-  const obj = {
-    type:"text",
-    text:"YOUR TEXT",
-    x:canvas.width/2,
-    y:canvas.height/2,
-    size:70,
-    color:"#ffffff",
-    opacity:1
-  };
+ const o={
+  id:uid(),type:"text",text,
+  x:state.width/2-250,y:state.height/2-60,w:500,h:120,
+  size:80,font:"Poppins",color:"#ffffff",grad2:"#7c5cff",grad3:"#00d4ff",
+  opacity:100,rotation:0,letterSpacing:0,lineSpacing:1.1,
+  bold:true,italic:false,gradientOn:false,curveOn:false,curve:0,
+  strokeWidth:0,strokeColor:"#000000",
+  shadowBlur:0,shadowDistance:0,shadowColor:"#000000",
+  glow:0,glowColor:"#7c5cff",visible:true,locked:false
+ };
 
-  objects.push(obj);
-
-  selectedIndex =
-    objects.length-1;
-
-  syncControls();
-
-  draw();
-
-  toast("Text added");
-
+ state.objects.push(o);
+ state.selected=o.id;
+ draw();
+ loadControlsForSelected();
 }
 
+function addPhoto(src){
+ pushHistory();
 
-function updateSelectedText(){
+ const o={
+  id:uid(),type:"photo",src,
+  x:state.width/2-250,y:state.height/2-180,w:500,h:360,
+  opacity:100,rotation:0,brightness:100,contrast:100,
+  saturation:100,blur:0,flip:false,
+  shape:"round",radius:25,frameWidth:0,frameColor:"#fff",
+  glow:0,glowColor:"#7c5cff",shadow:0,
+  crop:null,visible:true,locked:false
+ };
 
-  if(selectedIndex < 0) return;
-
-  const obj =
-    objects[selectedIndex];
-
-  if(obj.type !== "text") return;
-
-  obj.text =
-    document.getElementById("textInput").value ||
-    "YOUR TEXT";
-
-  obj.size =
-    Number(document.getElementById("sizeInput").value);
-
-  obj.color =
-    document.getElementById("colorInput").value;
-
-  obj.opacity =
-    Number(document.getElementById("opacityInput").value)/100;
-
-  draw();
-
+ state.objects.push(o);
+ state.selected=o.id;
+ draw();
+ loadPhotoControls();
 }
 
-document.getElementById("textInput")
-  .addEventListener("input",updateSelectedText);
-
-document.getElementById("sizeInput")
-  .addEventListener("input",updateSelectedText);
-
-document.getElementById("colorInput")
-  .addEventListener("input",updateSelectedText);
-
-document.getElementById("opacityInput")
-  .addEventListener("input",updateSelectedText);
-
-
-/* IMAGE SIZE */
-
-document.getElementById("imageSizeInput")
-  .addEventListener("input",function(){
-
-    if(selectedIndex < 0) return;
-
-    const obj =
-      objects[selectedIndex];
-
-    if(obj.type !== "image") return;
-
-    const value =
-      Number(this.value);
-
-    const baseW =
-      obj.baseW || obj.w;
-
-    const baseH =
-      obj.baseH || obj.h;
-
-    obj.baseW = baseW;
-    obj.baseH = baseH;
-
-    obj.w =
-      baseW * value / 100;
-
-    obj.h =
-      baseH * value / 100;
-
-    document.getElementById("imageSizeValue")
-      .textContent = value+"%";
-
-    draw();
-
-  });
-
-
-function syncControls(){
-
-  const imageRow =
-    document.getElementById("imageSizeRow");
-
-  if(selectedIndex < 0){
-
-    document.getElementById("textInput").value="";
-
-    imageRow.style.display="none";
-
-    return;
-
-  }
-
-  const obj =
-    objects[selectedIndex];
-
-  if(obj.type === "text"){
-
-    document.getElementById("textInput").value =
-      obj.text;
-
-    document.getElementById("sizeInput").value =
-      obj.size;
-
-    document.getElementById("colorInput").value =
-      obj.color;
-
-    document.getElementById("opacityInput").value =
-      Math.round(obj.opacity*100);
-
-    imageRow.style.display="none";
-
-  }
-
-  else if(obj.type === "image"){
-
-    document.getElementById("textInput").value="";
-
-    imageRow.style.display="flex";
-
-    const baseW =
-      obj.baseW || obj.w;
-
-    const value =
-      Math.round((obj.w/baseW)*100);
-
-    document.getElementById("imageSizeInput").value =
-      Math.max(20,Math.min(300,value));
-
-    document.getElementById("imageSizeValue")
-      .textContent =
-      Math.max(20,Math.min(300,value))+"%";
-
-  }
-
-  else{
-
-    document.getElementById("textInput").value="";
-
-    imageRow.style.display="none";
-
-  }
-
+function photoSelected(e){
+ const file=e.target.files[0];
+ if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>addPhoto(reader.result);
+ reader.readAsDataURL(file);
+ e.target.value="";
 }
 
+function addSticker(s){
+ pushHistory();
 
-/* STICKER */
+ const o={
+  id:uid(),type:"sticker",sticker:s,
+  x:state.width/2-60,y:state.height/2-60,w:120,h:120,
+  size:100,rotation:0,opacity:100,visible:true,locked:false
+ };
 
-function addSticker(){
-
-  const stickers = [
-    "🔥","😱","😂","😍","💥","⚡",
-    "👑","🎯","💀","❤️","😎","🚀"
-  ];
-
-  const sticker =
-    stickers[Math.floor(Math.random()*stickers.length)];
-
-  objects.push({
-    type:"sticker",
-    text:sticker,
-    x:canvas.width/2,
-    y:canvas.height/2,
-    size:100,
-    opacity:1
-  });
-
-  selectedIndex =
-    objects.length-1;
-
-  syncControls();
-
-  draw();
-
-  toast("Sticker added");
-
+ state.objects.push(o);
+ state.selected=o.id;
+ draw();
+ loadStickerControls();
 }
 
+function addShape(shape){
+ pushHistory();
 
-/* IMAGE */
+ const o={
+  id:uid(),type:"shape",shape,
+  x:state.width/2-120,y:state.height/2-90,w:240,h:180,
+  color:"#7c5cff",opacity:100,rotation:0,radius:20,
+  visible:true,locked:false
+ };
 
-function openImagePicker(){
-
-  document.getElementById("imageInput").click();
-
+ state.objects.push(o);
+ state.selected=o.id;
+ draw();
+ loadShapeControls();
 }
-
-
-function handleImage(event){
-
-  const file =
-    event.target.files[0];
-
-  if(!file) return;
-
-  const img = new Image();
-
-  img.onload = function(){
-
-    const maxW =
-      canvas.width * .55;
-
-    const maxH =
-      canvas.height * .55;
-
-    let w = img.width;
-    let h = img.height;
-
-    const scale =
-      Math.min(
-        maxW/w,
-        maxH/h,
-        1
-      );
-
-    w *= scale;
-    h *= scale;
-
-    objects.push({
-      type:"image",
-      img:img,
-      src:event.target.result,
-      x:canvas.width/2,
-      y:canvas.height/2,
-      w:w,
-      h:h,
-      baseW:w,
-      baseH:h,
-      opacity:1
-    });
-
-    selectedIndex =
-      objects.length-1;
-
-    syncControls();
-
-    draw();
-
-    toast("Photo added");
-
-  };
-
-  const reader =
-    new FileReader();
-
-  reader.onload =
-    e=>img.src=e.target.result;
-
-  reader.readAsDataURL(file);
-
-  event.target.value="";
-
-}
-
-
-/* BACKGROUND */
-
-function changeBackground(){
-
-  bgIndex++;
-
-  if(bgIndex >= backgrounds.length)
-    bgIndex=0;
-
-  draw();
-
-  toast("Background changed");
-
-}
-
-
-/* RATIO */
-
-function changeRatio(value){
-
-  currentRatio = value;
-
-  setCanvasSize();
-
-  draw();
-
-  toast("Format changed");
-
-}
-
-
-/* SELECT / DRAG */
-
-function getCanvasPosition(e){
-
-  const rect =
-    canvas.getBoundingClientRect();
-
-  let clientX;
-  let clientY;
-
-  if(e.touches){
-
-    clientX =
-      e.touches[0].clientX;
-
-    clientY =
-      e.touches[0].clientY;
-
-  }else{
-
-    clientX=e.clientX;
-    clientY=e.clientY;
-
-  }
-
-  return {
-    x:
-      (clientX-rect.left) *
-      (canvas.width/rect.width),
-
-    y:
-      (clientY-rect.top) *
-      (canvas.height/rect.height)
-  };
-
-}
-
-
-function hitTest(x,y){
-
-  for(let i=objects.length-1;i>=0;i--){
-
-    const o=objects[i];
-
-    if(o.type==="text"){
-
-      ctx.font =
-        "900 "+o.size+"px Arial";
-
-      const w =
-        ctx.measureText(o.text).width;
-
-      if(
-        x >= o.x-w/2-20 &&
-        x <= o.x+w/2+20 &&
-        y >= o.y-o.size/2-20 &&
-        y <= o.y+o.size/2+20
-      ){
-        return i;
-      }
-
-    }
-
-    else if(o.type==="image"){
-
-      if(
-        x >= o.x-o.w/2 &&
-        x <= o.x+o.w/2 &&
-        y >= o.y-o.h/2 &&
-        y <= o.y+o.h/2
-      ){
-        return i;
-      }
-
-    }
-
-    else if(o.type==="sticker"){
-
-      if(
-        x >= o.x-o.size/2 &&
-        x <= o.x+o.size/2 &&
-        y >= o.y-o.size/2 &&
-        y <= o.y+o.size/2
-      ){
-        return i;
-      }
-
-    }
-
-  }
-
-  return -1;
-
-}
-
-
-let dragging=false;
-
-canvas.addEventListener("pointerdown",e=>{
-
-  const p =
-    getCanvasPosition(e);
-
-  selectedIndex =
-    hitTest(p.x,p.y);
-
-  if(selectedIndex >= 0){
-
-    dragging=true;
-
-    canvas.setPointerCapture(e.pointerId);
-
-    syncControls();
-
-    draw();
-
-  }
-
-});
-
-
-canvas.addEventListener("pointermove",e=>{
-
-  if(!dragging || selectedIndex<0)
-    return;
-
-  const p =
-    getCanvasPosition(e);
-
-  objects[selectedIndex].x=p.x;
-  objects[selectedIndex].y=p.y;
-
-  draw();
-
-});
-
-
-canvas.addEventListener("pointerup",()=>{
-  dragging=false;
-});
-
-canvas.addEventListener("pointercancel",()=>{
-  dragging=false;
-});
-
-
-/* OBJECT ACTIONS */
 
 function deleteSelected(){
-
-  if(selectedIndex < 0){
-
-    toast("Select an object first");
-    return;
-
-  }
-
-  objects.splice(
-    selectedIndex,
-    1
-  );
-
-  selectedIndex=-1;
-
-  syncControls();
-
-  draw();
-
-  toast("Deleted");
-
+ if(!selectedObject())return;
+ pushHistory();
+ state.objects=state.objects.filter(o=>o.id!==state.selected);
+ state.selected=null;
+ draw();renderLayers();
 }
-
 
 function duplicateSelected(){
-
-  if(selectedIndex < 0){
-
-    toast("Select an object first");
-    return;
-
-  }
-
-  const old =
-    objects[selectedIndex];
-
-  const copy =
-    {...old};
-
-  copy.x += 35;
-  copy.y += 35;
-
-  if(old.type==="image"){
-
-    copy.img=old.img;
-    copy.src=old.src;
-
-    copy.baseW=old.baseW || old.w;
-    copy.baseH=old.baseH || old.h;
-
-  }
-
-  objects.push(copy);
-
-  selectedIndex =
-    objects.length-1;
-
-  syncControls();
-
-  draw();
-
-  toast("Duplicated");
-
+ const o=selectedObject();
+ if(!o)return;
+ pushHistory();
+ const n=clone(o);
+ n.id=uid();n.x+=25;n.y+=25;
+ state.objects.push(n);
+ state.selected=n.id;
+ draw();renderLayers();
 }
 
+function bringFront(){
+ const i=state.objects.findIndex(o=>o.id===state.selected);
+ if(i<0)return;
+ pushHistory();
+ const o=state.objects.splice(i,1)[0];
+ state.objects.push(o);
+ draw();renderLayers();
+}
 
-/* TEMPLATE */
+function sendBack(){
+ const i=state.objects.findIndex(o=>o.id===state.selected);
+ if(i<0)return;
+ pushHistory();
+ const o=state.objects.splice(i,1)[0];
+ state.objects.unshift(o);
+ draw();renderLayers();
+}
 
-function useTemplate(id){
+function toggleLockSelected(){
+ const o=selectedObject();
+ if(!o)return;
+ pushHistory();
+ o.locked=!o.locked;
+ draw();renderLayers();
+}
 
-  newProject();
+/* ---------- controls ---------- */
 
-  const texts = {
-    1:"EPIC GAMEPLAY",
-    2:"INSANE CLUTCH!",
-    3:"NEW VIDEO 🔥",
-    4:"TOP 10",
-    5:"OMG 😱 WHAT?",
-    6:"PRO PLAYER"
+function loadControlsForSelected(){
+ const o=selectedObject();
+ if(!o)return;
+
+ if(o.type==="text")loadTextControls();
+ if(o.type==="photo")loadPhotoControls();
+ if(o.type==="sticker")loadStickerControls();
+ if(o.type==="shape")loadShapeControls();
+ loadObjectControls();
+}
+
+function setVal(id,v){
+ const el=document.getElementById(id);
+ if(el!=null)el.value=v;
+}
+
+function setCheck(id,v){
+ const el=document.getElementById(id);
+ if(el)el.checked=!!v;
+}
+
+function loadTextControls(){
+ const o=selectedObject();
+ if(!o||o.type!=="text")return;
+
+ setVal("textValue",o.text);
+ setVal("textSize",o.size);
+ setVal("textOpacity",o.opacity);
+ setVal("textColor",o.color);
+ setVal("textGrad2",o.grad2);
+ setVal("textGrad3",o.grad3);
+ setVal("textRotation",o.rotation);
+ setVal("letterSpacing",o.letterSpacing);
+ setVal("lineSpacing",o.lineSpacing);
+ setVal("strokeWidth",o.strokeWidth);
+ setVal("strokeColor",o.strokeColor);
+ setVal("shadowBlur",o.shadowBlur);
+ setVal("shadowDistance",o.shadowDistance);
+ setVal("shadowColor",o.shadowColor);
+ setVal("glowWidth",o.glow);
+ setVal("gradientDirection",o.gradientDirection||"lr");
+ setVal("curve",o.curve);
+ setCheck("bold",o.bold);
+ setCheck("italic",o.italic);
+ setCheck("gradientOn",o.gradientOn);
+ setCheck("curveOn",o.curveOn);
+}
+
+function updateSelected(){
+ const o=selectedObject();
+ if(!o)return;
+
+ if(o.type==="text"){
+  o.text=document.getElementById("textValue").value;
+  o.size=+document.getElementById("textSize").value;
+  o.opacity=+document.getElementById("textOpacity").value;
+  o.color=document.getElementById("textColor").value;
+  o.grad2=document.getElementById("textGrad2").value;
+  o.grad3=document.getElementById("textGrad3").value;
+  o.rotation=+document.getElementById("textRotation").value;
+  o.letterSpacing=+document.getElementById("letterSpacing").value;
+  o.lineSpacing=+document.getElementById("lineSpacing").value;
+  o.strokeWidth=+document.getElementById("strokeWidth").value;
+  o.strokeColor=document.getElementById("strokeColor").value;
+  o.shadowBlur=+document.getElementById("shadowBlur").value;
+  o.shadowDistance=+document.getElementById("shadowDistance").value;
+  o.shadowColor=document.getElementById("shadowColor").value;
+  o.glow=+document.getElementById("glowWidth").value;
+  o.gradientDirection=document.getElementById("gradientDirection").value;
+  o.curve=+document.getElementById("curve").value;
+  o.bold=document.getElementById("bold").checked;
+  o.italic=document.getElementById("italic").checked;
+  o.gradientOn=document.getElementById("gradientOn").checked;
+  o.curveOn=document.getElementById("curveOn").checked;
+ }
+
+ if(o.type==="photo"){
+  const size=+document.getElementById("photoSize").value;
+  const old=Math.max(o.w,o.h);
+  const scale=size/100;
+  const ratio=o.w/o.h;
+  o.w=old*scale;
+  o.h=o.w/ratio;
+  o.rotation=+document.getElementById("photoRotation").value;
+  o.opacity=+document.getElementById("photoOpacity").value;
+  o.brightness=+document.getElementById("brightness").value;
+  o.contrast=+document.getElementById("contrast").value;
+  o.saturation=+document.getElementById("saturation").value;
+  o.blur=+document.getElementById("blur").value;
+  o.frameColor=document.getElementById("frameColor").value;
+  o.frameWidth=+document.getElementById("frameWidth").value;
+  o.glow=+document.getElementById("photoGlow").value;
+  o.shadow=+document.getElementById("photoShadow").value;
+ }
+
+ if(o.type==="sticker"){
+  const size=+document.getElementById("stickerSize").value;
+  o.size=size;o.w=size;o.h=size;
+  o.rotation=+document.getElementById("stickerRotation").value;
+  o.opacity=+document.getElementById("stickerOpacity").value;
+ }
+
+ if(o.type==="shape"){
+  o.color=document.getElementById("shapeColor").value;
+  o.opacity=+document.getElementById("shapeOpacity").value;
+  o.rotation=+document.getElementById("shapeRotation").value;
+  o.radius=+document.getElementById("shapeRadius").value;
+ }
+
+ draw();
+ saveDraft();
+}
+
+function loadPhotoControls(){
+ const o=selectedObject();
+ if(!o||o.type!=="photo")return;
+
+ setVal("photoSize",Math.round(Math.max(o.w,o.h)/5));
+ setVal("photoRotation",o.rotation);
+ setVal("photoOpacity",o.opacity);
+ setVal("brightness",o.brightness);
+ setVal("contrast",o.contrast);
+ setVal("saturation",o.saturation);
+ setVal("blur",o.blur);
+ setVal("frameColor",o.frameColor);
+ setVal("frameWidth",o.frameWidth);
+ setVal("photoGlow",o.glow);
+ setVal("photoShadow",o.shadow);
+}
+
+function loadStickerControls(){
+ const o=selectedObject();
+ if(!o||o.type!=="sticker")return;
+ setVal("stickerSize",o.size);
+ setVal("stickerRotation",o.rotation);
+ setVal("stickerOpacity",o.opacity);
+}
+
+function loadShapeControls(){
+ const o=selectedObject();
+ if(!o||o.type!=="shape")return;
+ setVal("shapeColor",o.color);
+ setVal("shapeOpacity",o.opacity);
+ setVal("shapeRotation",o.rotation);
+ setVal("shapeRadius",o.radius);
+}
+
+function loadObjectControls(){
+ const o=selectedObject();
+ if(!o)return;
+
+ setVal("objX",Math.round(o.x));
+ setVal("objY",Math.round(o.y));
+ setVal("objW",Math.round(o.w));
+ setVal("objH",Math.round(o.h));
+ setVal("objRotation",o.rotation||0);
+ setVal("objOpacity",o.opacity??100);
+}
+
+function updatePosition(){
+ const o=selectedObject();
+ if(!o)return;
+
+ const oldW=o.w;
+ o.x=+document.getElementById("objX").value;
+ o.y=+document.getElementById("objY").value;
+ o.w=Math.max(20,+document.getElementById("objW").value);
+ o.h=Math.max(20,+document.getElementById("objH").value);
+
+ if(document.getElementById("aspectLock").checked){
+  o.h=o.w/(oldW/o.h);
+  setVal("objH",Math.round(o.h));
+ }
+
+ o.rotation=+document.getElementById("objRotation").value;
+ o.opacity=+document.getElementById("objOpacity").value;
+
+ draw();
+ saveDraft();
+}
+
+function alignObject(type){
+ const o=selectedObject();
+ if(!o)return;
+ pushHistory();
+
+ if(type==="left")o.x=0;
+ if(type==="right")o.x=state.width-o.w;
+ if(type==="center")o.x=(state.width-o.w)/2;
+ if(type==="top")o.y=0;
+ if(type==="bottom")o.y=state.height-o.h;
+ if(type==="middle")o.y=(state.height-o.h)/2;
+
+ draw();loadObjectControls();
+}
+
+function setPhotoShape(shape){
+ const o=selectedObject();
+ if(!o||o.type!=="photo")return;
+ pushHistory();
+ o.shape=shape;
+ draw();
+}
+
+function flipPhoto(){
+ const o=selectedObject();
+ if(!o||o.type!=="photo")return;
+ pushHistory();
+ o.flip=!o.flip;
+ draw();
+}
+
+/* ---------- text ---------- */
+
+function textPreset(t){
+ const el=document.getElementById("textValue");
+ el.value=t;
+ addText();
+
+ const o=selectedObject();
+ if(!o)return;
+
+ if(t==="GAMING"){
+  o.font="Anton";o.size=105;o.color="#fff";o.strokeWidth=12;
+  o.strokeColor="#000";o.shadowBlur=15;
+ }
+ if(t==="RANK PUSH"){
+  o.font="Bebas Neue";o.size=120;o.gradientOn=true;
+ }
+ if(t==="NEW VIDEO"){
+  o.font="Bungee";o.size=85;o.gradientOn=true;o.strokeWidth=8;
+ }
+ if(t==="PRO"){
+  o.font="Orbitron";o.size=80;o.glow=20;o.gradientOn=true;
+ }
+ if(t==="NEON"){
+  o.font="Righteous";o.size=90;o.glow=30;o.gradientOn=true;
+ }
+
+ draw();
+}
+
+function directEditText(){
+ const o=selectedObject();
+ if(!o||o.type!=="text"){
+  alert("Please select a text object first.");
+  return;
+ }
+ document.getElementById("directText").value=o.text;
+ document.getElementById("textModal").classList.add("open");
+}
+
+function applyDirectText(){
+ const o=selectedObject();
+ if(o&&o.type==="text"){
+  pushHistory();
+  o.text=document.getElementById("directText").value;
+  draw();
+ }
+ closeTextModal();
+}
+
+function closeTextModal(){
+ document.getElementById("textModal").classList.remove("open");
+}
+
+/* ---------- stickers ---------- */
+
+function renderStickers(){
+ const g=document.getElementById("stickerGrid");
+ g.innerHTML="";
+ STICKERS.forEach(s=>{
+  const b=document.createElement("button");
+  b.className="stickerBtn";
+  b.textContent=s;
+  b.onclick=()=>addSticker(s);
+  g.appendChild(b);
+ });
+}
+
+/* ---------- fonts ---------- */
+
+function allFonts(){
+ return [...FREE_FONTS,...AD_FONTS,...PRO_FONTS];
+}
+
+function isFontOpen(f){
+ const item=allFonts().find(x=>x[0]===f);
+ if(!item)return true;
+ if(item[1]==="free")return true;
+ if(item[1]==="ad")return unlockedFonts.includes(f);
+ if(item[1]==="pro")return premium;
+ return false;
+}
+
+function chooseFont(f){
+ if(!isFontOpen(f)){
+  const item=allFonts().find(x=>x[0]===f);
+  if(item[1]==="ad"){
+   watchAdForFont(f);
+  }else{
+   openPremium();
+  }
+  return;
+ }
+
+ const o=selectedObject();
+ if(!o||o.type!=="text"){
+  alert("Select a text object first.");
+  return;
+ }
+
+ pushHistory();
+ o.font=f;
+
+ recentFonts=[f,...recentFonts.filter(x=>x!==f)].slice(0,8);
+ localStorage.setItem("tmp_recentFonts",JSON.stringify(recentFonts));
+
+ draw();
+ loadTextControls();
+}
+
+function renderFonts(){
+ const q=(document.getElementById("fontSearch").value||"").toLowerCase();
+
+ function filter(arr){
+  return arr.filter(x=>{
+   const matches=x[0].toLowerCase().includes(q);
+   if(fontCategory==="all")return matches;
+   if(fontCategory==="free")return matches&&x[1]==="free";
+   if(fontCategory==="ad")return matches&&x[1]==="ad";
+   if(fontCategory==="pro")return matches&&x[1]==="pro";
+   if(fontCategory==="gaming")return matches&&x[2]==="gaming";
+   if(fontCategory==="stylish")return matches&&x[2]==="stylish";
+  });
+ }
+
+ renderFontContainer("fontGrid",filter(allFonts()));
+ renderFontContainer("favoriteFonts",
+  favoriteFonts.map(f=>allFonts().find(x=>x[0]===f)).filter(Boolean)
+ );
+}
+
+function renderFontContainer(id,arr){
+ const box=document.getElementById(id);
+ box.innerHTML="";
+
+ arr.forEach(item=>{
+  const [name,type]=item;
+  const b=document.createElement("button");
+  b.className="fontItem "+type;
+  b.style.fontFamily=`"${name}"`;
+  b.textContent=name;
+  b.onclick=()=>chooseFont(name);
+
+  if(type==="ad")b.innerHTML+=`<span class="tag">AD</span>`;
+  if(type==="pro")b.innerHTML+=`<span class="tag">PRO</span>`;
+
+  b.oncontextmenu=e=>{
+   e.preventDefault();
+   toggleFavorite(name);
   };
 
-  const colors = [
-    "#ffffff",
-    "#ffdf3d",
-    "#ffffff",
-    "#ffffff",
-    "#ff4c8b",
-    "#65d9ff"
-  ];
-
-  bgIndex =
-    (id-1) % backgrounds.length;
-
-  objects=[
-    {
-      type:"text",
-      text:texts[id] || "NEW VIDEO",
-      x:canvas.width/2,
-      y:canvas.height/2,
-      size:Math.round(canvas.width/12),
-      color:colors[id-1] || "#ffffff",
-      opacity:1
-    }
-  ];
-
-  selectedIndex=0;
-
-  draw();
-
-  syncControls();
-
-  showScreen("editor");
-
-  toast("Template loaded");
-
+  box.appendChild(b);
+ });
 }
 
-
-/* SAVE PROJECT */
-
-function serializeObjects(){
-
-  return objects.map(o=>{
-
-    const copy={...o};
-
-    delete copy.img;
-
-    return copy;
-
-  });
-
+function toggleFavorite(f){
+ if(favoriteFonts.includes(f)){
+  favoriteFonts=favoriteFonts.filter(x=>x!==f);
+ }else{
+  favoriteFonts.push(f);
+ }
+ localStorage.setItem("tmp_favorites",JSON.stringify(favoriteFonts));
+ renderFonts();
 }
 
+function watchAdForFont(font){
+ document.getElementById("adModal").classList.add("open");
+ let n=5;
+ document.getElementById("adTimer").textContent=n;
+
+ const timer=setInterval(()=>{
+  n--;
+  document.getElementById("adTimer").textContent=n;
+  if(n<=0){
+   clearInterval(timer);
+   unlockedFonts.push(font);
+   unlockedFonts=[...new Set(unlockedFonts)];
+   localStorage.setItem("tmp_adFonts",JSON.stringify(unlockedFonts));
+   document.getElementById("adModal").classList.remove("open");
+   chooseFont(font);
+   alert(font+" unlocked for this device.");
+  }
+ },1000);
+}
+
+/* ---------- background ---------- */
+
+function setBackground(){
+ state.background.type="solid";
+ state.background.color=document.getElementById("bgColor").value;
+ draw();saveDraft();
+}
+
+function setBackgroundType(type){
+ state.background.type=type;
+ if(type==="solid")state.background.color=document.getElementById("bgColor").value;
+ if(type==="gradient"){
+  state.background.g1=document.getElementById("bgGrad1").value;
+  state.background.g2=document.getElementById("bgGrad2").value;
+ }
+ draw();saveDraft();
+}
+
+function backgroundPreset(a,b){
+ state.background={
+  type:"gradient",color:a,g1:a,g2:b,image:null
+ };
+ draw();saveDraft();
+}
+
+function backgroundImage(e){
+ const file=e.target.files[0];
+ if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  state.background={type:"image",color:"#000",g1:"#000",g2:"#000",image:reader.result};
+  draw();saveDraft();
+ };
+ reader.readAsDataURL(file);
+ e.target.value="";
+}
+
+/* ---------- layers ---------- */
+
+function renderLayers(){
+ const box=document.getElementById("layerList");
+ if(!box)return;
+ box.innerHTML="";
+
+ [...state.objects].reverse().forEach(o=>{
+  const row=document.createElement("div");
+  row.className="layer";
+
+  const eye=document.createElement("button");
+  eye.textContent=o.visible===false?"🙈":"👁";
+  eye.onclick=()=>{
+   o.visible=o.visible===false;
+   draw();renderLayers();
+  };
+
+  const name=document.createElement("div");
+  name.className="layerName";
+  name.textContent=o.type==="text"?o.text:(o.type==="sticker"?o.sticker:o.type);
+  name.onclick=()=>{
+   state.selected=o.id;
+   updateSelectionUI();
+   loadControlsForSelected();
+  };
+
+  const lock=document.createElement("button");
+  lock.textContent=o.locked?"🔒":"🔓";
+  lock.onclick=()=>{
+   o.locked=!o.locked;
+   renderLayers();draw();
+  };
+
+  const up=document.createElement("button");
+  up.textContent="↑";
+  up.onclick=()=>layerMove(o.id,1);
+
+  const down=document.createElement("button");
+  down.textContent="↓";
+  down.onclick=()=>layerMove(o.id,-1);
+
+  row.append(eye,name,lock,up,down);
+  box.appendChild(row);
+ });
+}
+
+function layerMove(id,dir){
+ const i=state.objects.findIndex(o=>o.id===id);
+ const ni=i+dir;
+ if(i<0||ni<0||ni>=state.objects.length)return;
+ pushHistory();
+ [state.objects[i],state.objects[ni]]=[state.objects[ni],state.objects[i]];
+ draw();renderLayers();
+}
+
+function moveSelectedLayer(dir){
+ if(state.selected)layerMove(state.selected,dir);
+}
+
+/* ---------- projects ---------- */
+
+function projectKey(){
+ return "tmp_project_"+state.title.replace(/[^a-z0-9]/gi,"_");
+}
 
 function saveProject(){
-
-  let projects =
-    JSON.parse(
-      localStorage.getItem("tmprojects") || "[]"
-    );
-
-  if(projects.length>=20){
-
-    toast("Maximum 20 projects reached");
-    return;
-
-  }
-
-  const project={
-    id:Date.now(),
-    name:"Thumbnail "+new Date().toLocaleDateString(),
-    ratio:currentRatio,
-    bgIndex:bgIndex,
-    objects:serializeObjects(),
-    imageSources:objects
-      .filter(o=>o.type==="image")
-      .map(o=>({
-        src:o.src
-      }))
-  };
-
-  projects.unshift(project);
-
-  localStorage.setItem(
-    "tmprojects",
-    JSON.stringify(projects)
-  );
-
-  appData.designs++;
-
-  localStorage.setItem(
-    "tmdata",
-    JSON.stringify(appData)
-  );
-
-  toast("Project saved");
-
-  renderProjects();
-
+ localStorage.setItem(projectKey(),JSON.stringify(state));
+ saveDraft();
+ renderProjects();
+ alert("Project saved.");
 }
 
+function saveDraft(){
+ try{
+  localStorage.setItem("tmp_draft",JSON.stringify(state));
+ }catch(e){}
+}
 
-/* PROJECT LIST */
+function loadDraft(){
+ const d=localStorage.getItem("tmp_draft");
+ if(!d)return;
+ try{
+  const s=JSON.parse(d);
+  if(confirm("Restore your last draft?")){
+   state=s;
+   showPage("editorPage");
+   refresh();
+  }
+ }catch(e){}
+}
 
 function renderProjects(){
-
-  const container =
-    document.getElementById("projectList");
-
-  const projects =
-    JSON.parse(
-      localStorage.getItem("tmprojects") || "[]"
-    );
-
-  document.getElementById("projectCount").textContent =
-    projects.length+"/20";
-
-  if(projects.length===0){
-
-    container.innerHTML =
-      `<div class="empty">
-        📁<br><br>
-        No projects yet.<br>
-        Create your first thumbnail.
-      </div>`;
-
-    return;
-
-  }
-
-  container.innerHTML="";
-
-  projects.forEach(project=>{
-
-    const card =
-      document.createElement("div");
-
-    card.className="project";
-
-    const preview =
-      document.createElement("canvas");
-
-    preview.width=320;
-    preview.height=
-      Math.round(
-        320 /
-        (ratioData[project.ratio].w /
-         ratioData[project.ratio].h)
-      );
-
-    const pctx =
-      preview.getContext("2d");
-
-    pctx.fillStyle =
-      backgrounds[project.bgIndex || 0];
-
-    pctx.fillRect(
-      0,0,
-      preview.width,
-      preview.height
-    );
-
-    project.objects.forEach(o=>{
-
-      if(o.type==="text"){
-
-        const scale =
-          preview.width /
-          ratioData[project.ratio].w;
-
-        pctx.font =
-          "900 "+(o.size*scale)+"px Arial";
-
-        pctx.textAlign="center";
-        pctx.textBaseline="middle";
-
-        pctx.fillStyle=o.color;
-
-        pctx.fillText(
-          o.text,
-          o.x*scale,
-          o.y*scale
-        );
-
-      }
-
-      if(o.type==="sticker"){
-
-        const scale =
-          preview.width /
-          ratioData[project.ratio].w;
-
-        pctx.font =
-          (o.size*scale)+"px Arial";
-
-        pctx.textAlign="center";
-        pctx.textBaseline="middle";
-
-        pctx.fillText(
-          o.text,
-          o.x*scale,
-          o.y*scale
-        );
-
-      }
-
-    });
-
-    const body =
-      document.createElement("div");
-
-    body.className="projectBody";
-
-    body.innerHTML=`
-      <b>${escapeHtml(project.name)}</b>
-      <div class="projectActions">
-        <button onclick="loadProject(${project.id})">
-          Open
-        </button>
-        <button onclick="deleteProject(${project.id})">
-          Delete
-        </button>
-      </div>
-    `;
-
-    card.appendChild(preview);
-    card.appendChild(body);
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-function escapeHtml(text){
-
-  return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-function loadProject(id){
-
-  const projects =
-    JSON.parse(
-      localStorage.getItem("tmprojects") || "[]"
-    );
-
-  const project =
-    projects.find(p=>p.id===id);
-
-  if(!project) return;
-
-  currentRatio =
-    project.ratio || "youtube";
-
-  bgIndex =
-    project.bgIndex || 0;
-
-  document.getElementById("ratioSelect").value =
-    currentRatio;
-
-  setCanvasSize();
-
-  objects =
-    project.objects.map(o=>{
-
-      const copy={...o};
-
-      if(copy.type==="image" && copy.src){
-
-        const img =
-          new Image();
-
-        img.onload=()=>{
-          draw();
-        };
-
-        img.src=copy.src;
-
-        copy.img=img;
-
-        copy.baseW =
-          copy.baseW || copy.w;
-
-        copy.baseH =
-          copy.baseH || copy.h;
-
-      }
-
-      return copy;
-
-    });
-
-  selectedIndex=-1;
-
-  syncControls();
-
-  draw();
-
-  showScreen("editor");
-
-  toast("Project loaded");
-
-}
-
-
-function deleteProject(id){
-
-  if(!confirm("Delete this project?"))
-    return;
-
-  let projects =
-    JSON.parse(
-      localStorage.getItem("tmprojects") || "[]"
-    );
-
-  projects =
-    projects.filter(p=>p.id!==id);
-
-  localStorage.setItem(
-    "tmprojects",
-    JSON.stringify(projects)
-  );
-
-  renderProjects();
-
-  toast("Project deleted");
-
-}
-
-
-/* DOWNLOAD */
-
-function downloadImage(){
-
-  const link =
-    document.createElement("a");
-
-  link.download =
-    "thumbnail-maker-"+Date.now()+".png";
-
-  link.href =
-    canvas.toDataURL("image/png");
-
-  link.click();
-
-  appData.downloads++;
-
-  localStorage.setItem(
-    "tmdata",
-    JSON.stringify(appData)
-  );
-
-  updateProfile();
-
-  toast("Thumbnail downloaded");
-
-}
-
-
-/* SHARE */
-
-async function shareImage(){
-
-  canvas.toBlob(async blob=>{
-
-    if(!blob){
-
-      toast("Unable to share");
-      return;
-
+ const box=document.getElementById("projectList");
+ box.innerHTML="";
+
+ const keys=[];
+ for(let i=0;i<localStorage.length;i++){
+  const k=localStorage.key(i);
+  if(k&&k.startsWith("tmp_project_"))keys.push(k);
+ }
+
+ if(!keys.length){
+  box.innerHTML=`<div class="card">No saved projects yet.</div>`;
+  return;
+ }
+
+ keys.forEach(k=>{
+  try{
+   const p=JSON.parse(localStorage.getItem(k));
+   const div=document.createElement("div");
+   div.className="card project";
+
+   const cv=document.createElement("canvas");
+   cv.className="projectPreview";
+   cv.width=160;cv.height=90;
+
+   drawProjectPreview(cv,p);
+
+   const info=document.createElement("div");
+   info.className="projectInfo";
+   info.innerHTML=`<strong>${escapeHtml(p.title)}</strong><small>${p.width} × ${p.height}</small>`;
+
+   const load=document.createElement("button");
+   load.className="smallBtn";
+   load.textContent="Open";
+   load.onclick=()=>{
+    state=p;
+    showPage("editorPage");
+    refresh();
+   };
+
+   const del=document.createElement("button");
+   del.className="smallBtn danger";
+   del.textContent="×";
+   del.onclick=()=>{
+    if(confirm("Delete project?")){
+     localStorage.removeItem(k);
+     renderProjects();
     }
+   };
 
-    const file =
-      new File(
-        [blob],
-        "thumbnail.png",
-        {type:"image/png"}
-      );
-
-    if(
-      navigator.canShare &&
-      navigator.canShare({files:[file]})
-    ){
-
-      try{
-
-        await navigator.share({
-          title:"My Thumbnail",
-          text:"Created with Thumbnail Maker Pro",
-          files:[file]
-        });
-
-        toast("Shared successfully");
-
-      }catch(e){}
-
-    }else{
-
-      downloadImage();
-
-      toast("Sharing unavailable — downloaded instead");
-
-    }
-
-  },"image/png");
-
+   div.append(cv,info,load,del);
+   box.appendChild(div);
+  }catch(e){}
+ });
 }
 
+function drawProjectPreview(cv,p){
+ const c=cv.getContext("2d");
+ c.fillStyle=p.background?.color||"#151a30";
+ c.fillRect(0,0,cv.width,cv.height);
 
-/* PREMIUM */
+ p.objects.filter(o=>o.visible!==false).forEach(o=>{
+  const x=o.x/p.width*cv.width;
+  const y=o.y/p.height*cv.height;
+  const w=o.w/p.width*cv.width;
+  const h=o.h/p.height*cv.height;
 
-function activatePremium(){
-
-  premium=true;
-
-  localStorage.setItem(
-    "tmpremium",
-    "true"
-  );
-
-  updateAds();
-
-  updateProfile();
-
-  toast("Premium demo activated");
-
-}
-
-
-function updateAds(){
-
-  document
-    .querySelectorAll(".freeAd")
-    .forEach(ad=>{
-
-      if(premium){
-
-        ad.style.display="none";
-
-      }else{
-
-        ad.style.display="flex";
-
-      }
-
-    });
-
-}
-
-
-/* PROFILE */
-
-function updateProfile(){
-
-  document.getElementById("designStat").textContent =
-    appData.designs;
-
-  document.getElementById("downloadStat").textContent =
-    appData.downloads;
-
-  document.getElementById("profileName").textContent =
-    appData.name || "Creator";
-
-  document.getElementById("statusStat").textContent =
-    premium ? "PRO" : "FREE";
-
-}
-
-
-function openNameModal(){
-
-  document.getElementById("nameInput").value =
-    appData.name || "Creator";
-
-  document
-    .getElementById("nameModal")
-    .classList.add("show");
-
-}
-
-
-function saveName(){
-
-  const name =
-    document.getElementById("nameInput").value.trim();
-
-  if(!name){
-
-    toast("Enter a name");
-    return;
-
+  if(o.type==="shape"){
+   c.fillStyle=o.color||"#7c5cff";
+   c.fillRect(x,y,w,h);
   }
-
-  appData.name=name;
-
-  localStorage.setItem(
-    "tmdata",
-    JSON.stringify(appData)
-  );
-
-  closeModal("nameModal");
-
-  updateProfile();
-
-  toast("Name updated");
-
+  if(o.type==="text"){
+   c.fillStyle=o.color||"#fff";
+   c.font=`bold ${Math.max(8,o.size/p.width*cv.width*1.5)}px ${o.font||"Arial"}`;
+   c.textAlign="center";
+   c.fillText(o.text||"Text",x+w/2,y+h/2);
+  }
+  if(o.type==="sticker"){
+   c.font=`${Math.max(12,w)}px Arial`;
+   c.textAlign="center";
+   c.fillText(o.sticker||"😀",x+w/2,y+h/2);
+  }
+ });
 }
 
-
-/* RESET */
-
-function clearCanvas(){
-
-  if(!confirm("Reset this design?"))
-    return;
-
-  objects=[];
-  selectedIndex=-1;
-  bgIndex=0;
-
-  syncControls();
-
-  draw();
-
-  toast("Canvas reset");
-
+function duplicateProject(){
+ const copy=clone(state);
+ copy.title=state.title+" Copy";
+ localStorage.setItem("tmp_project_"+copy.title.replace(/[^a-z0-9]/gi,"_"),JSON.stringify(copy));
+ renderProjects();
 }
 
+function renameProject(){
+ const n=prompt("Project name:",state.title);
+ if(!n)return;
+ state.title=n;
+ document.getElementById("editorTitle").textContent=n;
+ saveProject();
+}
 
-function clearAllData(){
+/* ---------- backup ---------- */
 
-  if(!confirm(
-    "This will delete local projects and settings. Continue?"
-  )) return;
+function exportAllProjects(){
+ const projects={};
+ for(let i=0;i<localStorage.length;i++){
+  const k=localStorage.key(i);
+  if(k.startsWith("tmp_project_"))projects[k]=localStorage.getItem(k);
+ }
 
-  localStorage.removeItem("tmprojects");
-  localStorage.removeItem("tmdata");
-  localStorage.removeItem("tmpremium");
+ const blob=new Blob([JSON.stringify(projects)],{type:"application/json"});
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="thumbnail-maker-backup.json";
+ a.click();
+ URL.revokeObjectURL(a.href);
+}
 
-  premium=false;
+function restoreBackup(e){
+ const file=e.target.files[0];
+ if(!file)return;
 
-  appData={
-    downloads:0,
-    designs:0,
-    name:"Creator"
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const data=JSON.parse(reader.result);
+   Object.keys(data).forEach(k=>localStorage.setItem(k,data[k]));
+   alert("Backup restored.");
+   renderProjects();
+  }catch(err){
+   alert("Invalid backup file.");
+  }
+ };
+ reader.readAsText(file);
+}
+
+function escapeHtml(s){
+ return String(s).replace(/[&<>"']/g,m=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+ }[m]));
+}
+
+/* ---------- crop ---------- */
+
+let cropTarget=null;
+
+function openCrop(){
+ const o=selectedObject();
+ if(!o||o.type!=="photo"||!o.src){
+  alert("Select a photo first.");
+  return;
+ }
+
+ cropTarget=o;
+ document.getElementById("cropImg").src=o.src;
+ document.getElementById("cropModal").classList.add("open");
+
+ setTimeout(()=>{
+  const box=document.getElementById("cropBox");
+  box.style.left="22.5%";
+  box.style.top="22.5%";
+  box.style.width="55%";
+  box.style.height="55%";
+ },30);
+}
+
+function closeCrop(){
+ document.getElementById("cropModal").classList.remove("open");
+ cropTarget=null;
+}
+
+function applyCrop(){
+ if(!cropTarget)return;
+
+ const img=document.getElementById("cropImg");
+ const box=document.getElementById("cropBox");
+ const area=document.getElementById("cropArea");
+
+ const ir=img.getBoundingClientRect();
+ const br=box.getBoundingClientRect();
+
+ let sx=(br.left-ir.left)/ir.width;
+ let sy=(br.top-ir.top)/ir.height;
+ let sw=br.width/ir.width;
+ let sh=br.height/ir.height;
+
+ sx=Math.max(0,Math.min(1,sx));
+ sy=Math.max(0,Math.min(1,sy));
+ sw=Math.max(.05,Math.min(1-sx,sw));
+ sh=Math.max(.05,Math.min(1-sy,sh));
+
+ const im=new Image();
+ im.onload=()=>{
+  pushHistory();
+  cropTarget.crop={
+   x:Math.round(im.naturalWidth*sx),
+   y:Math.round(im.naturalHeight*sy),
+   w:Math.round(im.naturalWidth*sw),
+   h:Math.round(im.naturalHeight*sh)
   };
-
-  renderProjects();
-  updateProfile();
-  updateAds();
-
-  toast("Local data cleared");
-
+  draw();
+  closeCrop();
+ };
+ im.src=cropTarget.src;
 }
 
+/* crop box move */
+let cropInteraction=null;
+const cropBox=document.getElementById("cropBox");
 
-/* INITIALIZE */
+cropBox.addEventListener("pointerdown",e=>{
+ if(e.target.classList.contains("cropCorner"))return;
+ cropInteraction={
+  x:e.clientX,y:e.clientY,
+  l:cropBox.offsetLeft,t:cropBox.offsetTop
+ };
+ cropBox.setPointerCapture(e.pointerId);
+});
 
-setCanvasSize();
-draw();
+cropBox.addEventListener("pointermove",e=>{
+ if(!cropInteraction)return;
+
+ const area=document.getElementById("cropArea");
+ const dx=e.clientX-cropInteraction.x;
+ const dy=e.clientY-cropInteraction.y;
+
+ let l=cropInteraction.l+dx;
+ let t=cropInteraction.t+dy;
+
+ l=Math.max(0,Math.min(area.clientWidth-cropBox.offsetWidth,l));
+ t=Math.max(0,Math.min(area.clientHeight-cropBox.offsetHeight,t));
+
+ cropBox.style.left=l+"px";
+ cropBox.style.top=t+"px";
+});
+
+cropBox.addEventListener("pointerup",()=>cropInteraction=null);
+
+document.querySelectorAll(".cropCorner").forEach(c=>{
+ c.addEventListener("pointerdown",e=>{
+  e.stopPropagation();
+  const start={
+   x:e.clientX,y:e.clientY,
+   l:cropBox.offsetLeft,t:cropBox.offsetTop,
+   w:cropBox.offsetWidth,h:cropBox.offsetHeight
+  };
+  const corner=[...c.classList].find(x=>x.startsWith("cc-"));
+
+  function move(ev){
+   let dx=ev.clientX-start.x;
+   let dy=ev.clientY-start.y;
+   let l=start.l,t=start.t,w=start.w,h=start.h;
+
+   if(corner==="cc-br"){w+=dx;h+=dy}
+   if(corner==="cc-bl"){l+=dx;w-=dx;h+=dy}
+   if(corner==="cc-tr"){t+=dy;h-=dy;w+=dx}
+   if(corner==="cc-tl"){l+=dx;t+=dy;w-=dx;h-=dy}
+
+   w=Math.max(40,w);h=Math.max(40,h);
+   const area=document.getElementById("cropArea");
+   l=Math.max(0,Math.min(area.clientWidth-w,l));
+   t=Math.max(0,Math.min(area.clientHeight-h,t));
+
+   cropBox.style.left=l+"px";
+   cropBox.style.top=t+"px";
+   cropBox.style.width=w+"px";
+   cropBox.style.height=h+"px";
+  }
+
+  function up(){
+   document.removeEventListener("pointermove",move);
+   document.removeEventListener("pointerup",up);
+  }
+
+  document.addEventListener("pointermove",move);
+  document.addEventListener("pointerup",up);
+ });
+});
+
+/* ---------- export ---------- */
+
+function openExport(){
+ document.getElementById("exportModal").classList.add("open");
+}
+function closeExport(){
+ document.getElementById("exportModal").classList.remove("open");
+}
+
+async function exportCanvas(){
+ const format=document.getElementById("exportFormat").value;
+ const scale=+document.getElementById("exportQuality").value;
+
+ const out=document.createElement("canvas");
+ out.width=state.width*scale;
+ out.height=state.height*scale;
+
+ const oc=out.getContext("2d");
+ oc.scale(scale,scale);
+
+ const old=window.ctx;
+ window.ctx=oc;
+
+ oc.clearRect(0,0,state.width,state.height);
+ drawBackgroundToContext(oc);
+
+ for(const o of state.objects){
+  if(o.visible!==false)drawObjectToContext(oc,o);
+ }
+
+ window.ctx=old;
+
+ const mime=
+  format==="jpeg"?"image/jpeg":
+  format==="webp"?"image/webp":"image/png";
+
+ const quality=format==="png"?1:.95;
+
+ out.toBlob(blob=>{
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=(state.title||"thumbnail")+"."+(
+   format==="jpeg"?"jpg":format
+  );
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+ },mime,quality);
+
+ closeExport();
+}
+
+function drawBackgroundToContext(c){
+ if(state.background.type==="transparent")return;
+
+ if(state.background.type==="gradient"){
+  const g=c.createLinearGradient(0,0,state.width,state.height);
+  g.addColorStop(0,state.background.g1);
+  g.addColorStop(1,state.background.g2);
+  c.fillStyle=g;
+ }else{
+  c.fillStyle=state.background.color||"#151a30";
+ }
+
+ c.fillRect(0,0,state.width,state.height);
+}
+
+function drawObjectToContext(c,o){
+ c.save();
+ c.translate(o.x+o.w/2,o.y+o.h/2);
+ c.rotate((o.rotation||0)*Math.PI/180);
+ c.globalAlpha=(o.opacity??100)/100;
+
+ if(o.type==="text")drawTextTo(c,o);
+ if(o.type==="shape")drawShapeTo(c,o);
+ if(o.type==="sticker")drawStickerTo(c,o);
+
+ c.restore();
+
+ if(o.type==="photo"&&o.src){
+  const im=new Image();
+  im.onload=()=>{
+   c.save();
+   c.translate(o.x+o.w/2,o.y+o.h/2);
+   c.rotate((o.rotation||0)*Math.PI/180);
+   c.globalAlpha=(o.opacity??100)/100;
+
+   if(o.shape==="circle"){
+    c.beginPath();
+    c.arc(0,0,Math.min(o.w,o.h)/2,0,Math.PI*2);
+    c.clip();
+   }else if(o.shape==="round"){
+    roundedRectPath(c,-o.w/2,-o.h/2,o.w,o.h,o.radius||30);
+    c.clip();
+   }
+
+   c.filter=
+    `brightness(${o.brightness||100}%) contrast(${o.contrast||100}%) saturate(${o.saturation||100}%) blur(${o.blur||0}px)`;
+
+   let sx=o.crop?.x||0;
+   let sy=o.crop?.y||0;
+   let sw=o.crop?.w||im.naturalWidth;
+   let sh=o.crop?.h||im.naturalHeight;
+
+   if(o.flip)c.scale(-1,1);
+   c.drawImage(im,sx,sy,sw,sh,-o.w/2,-o.h/2,o.w,o.h);
+   c.restore();
+  };
+  im.src=o.src;
+ }
+}
+
+function drawTextTo(c,o){
+ c.font=getFont(o);
+ c.fillStyle=o.color||"#fff";
+ c.textAlign="center";
+ c.textBaseline="middle";
+
+ if(o.strokeWidth){
+  c.strokeStyle=o.strokeColor||"#000";
+  c.lineWidth=o.strokeWidth;
+  c.strokeText(o.text||"Text",0,0);
+ }
+ c.fillText(o.text||"Text",0,0);
+}
+
+function drawShapeTo(c,o){
+ c.fillStyle=o.color||"#7c5cff";
+ if(o.shape==="circle"){
+  c.beginPath();
+  c.arc(0,0,Math.min(o.w,o.h)/2,0,Math.PI*2);
+  c.fill();
+ }else{
+  c.fillRect(-o.w/2,-o.h/2,o.w,o.h);
+ }
+}
+
+function drawStickerTo(c,o){
+ c.font=`${o.size||100}px Arial`;
+ c.textAlign="center";
+ c.textBaseline="middle";
+ c.fillText(o.sticker||"😀",0,0);
+}
+
+/* ---------- safe ---------- */
+
+function toggleSafe(){
+ document.getElementById("safeBox").classList.toggle("show");
+}
+
+/* ---------- premium ---------- */
+
+function openPremium(){
+ showPage("premiumPage");
+}
+
+function demoPremium(){
+ premium=true;
+ localStorage.setItem("tmp_premium","1");
+ alert("Premium Demo unlocked on this device.");
+ renderFonts();
+}
+
+/* ---------- storage ---------- */
+
+function updateStorage(){
+ let count=0;
+ for(let i=0;i<localStorage.length;i++){
+  if(localStorage.key(i).startsWith("tmp_project_"))count++;
+ }
+ document.getElementById("storageInfo").textContent=
+  count+" saved project(s) • "+unlockedFonts.length+" ad font(s) unlocked • Premium: "+(premium?"Yes":"No");
+}
+
+/* ---------- keyboard ---------- */
+
+document.addEventListener("keydown",e=>{
+ if(document.activeElement.tagName==="INPUT"||
+    document.activeElement.tagName==="TEXTAREA")return;
+
+ if(e.key==="Delete"||e.key==="Backspace")deleteSelected();
+ if(e.key==="Escape")closePanels();
+
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="z"){
+  e.preventDefault();undo();
+ }
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="y"){
+  e.preventDefault();redo();
+ }
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="d"){
+  e.preventDefault();duplicateSelected();
+ }
+});
+
+/* ---------- initialization ---------- */
+
+renderStickers();
+renderFonts();
 renderProjects();
-updateProfile();
-updateAds();
 
+document.getElementById("textValue").value="YOUR TEXT";
 
-/*
-========================================================
-ADVERTISEMENT INTEGRATION AREA
-========================================================
-
-IMPORTANT:
-
-Ye abhi placeholder ad hai.
-
-Real Google ads ke liye actual ad network account
-aur approved ad unit IDs ki zarurat hoti hai.
-
-Fake AdMob IDs ya fake earning yahan use nahi ki gayi.
-
-Web version me approved web advertising setup use hoga.
-
-Native Android APK version me Google Mobile Ads SDK
-integrate kiya ja sakta hai.
-
-========================================================
-*/
+setTimeout(()=>{
+ loadDraft();
+},300);
 
 </script>
-
 </body>
 </html>
