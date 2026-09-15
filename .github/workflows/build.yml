@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -37,9 +38,31 @@ jobs:
           npx cap add android
           npx cap sync android
 
-      - name: Inject AdMob App ID to Manifest
+      - name: Inject AdMob App ID
         run: |
-          sed -i '/<\/application>/i <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-3940256099942544~3347511713"/>' android/app/src/main/AndroidManifest.xml
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          manifest = Path("android/app/src/main/AndroidManifest.xml")
+          text = manifest.read_text()
+
+          app_id = "ca-app-pub-9929403853233838~1564317898"
+
+          meta = f'<meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="{app_id}" />'
+
+          if "com.google.android.gms.ads.APPLICATION_ID" not in text:
+              text = text.replace("</application>", f"    {meta}\n</application>")
+
+          manifest.write_text(text)
+          PY
+
+      - name: Verify AdMob Configuration
+        run: |
+          echo "Checking AdMob App ID..."
+          grep -n "com.google.android.gms.ads.APPLICATION_ID" \
+            android/app/src/main/AndroidManifest.xml || true
 
       - name: Build Debug APK
         run: |
