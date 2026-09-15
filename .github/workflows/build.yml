@@ -23,12 +23,25 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Initialize Capacitor Project
+      - name: Prepare Web Assets
+        run: |
+          mkdir -p www
+          cp -r index.html www/ || true
+          cp -r *.css www/ || true
+          cp -r *.js www/ || true
+          cp -r assets www/ || true
+
+      - name: Setup Capacitor and AdMob
         run: |
           npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "Thumbnail Maker Pro" "com.thumbnailmaker.pro" --web-dir "."
+          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor-community/admob
+          npx cap init "Thumbnail Maker Pro" "com.thumbnailmaker.pro" --web-dir "www"
           npx cap add android
+          npx cap sync android
+
+      - name: Inject AdMob App ID to Manifest
+        run: |
+          sed -i '/<\/application>/i <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-3940256099942544~3347511713"/>' android/app/src/main/AndroidManifest.xml
 
       - name: Build Debug APK
         run: |
